@@ -4,7 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Login Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'cream': '#E4E0E1',
+              'beige': '#D6C0B3',
+              'brown-light': '#AB886D',
+              'brown-dark': '#493628'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .gradient-bg {
+        background: linear-gradient(135deg, #E4E0E1 0%, #D6C0B3 100%);
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
