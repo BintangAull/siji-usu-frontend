@@ -5,7 +5,7 @@ import {useNavigate} from "react-router";
 import {alertError, alertSuccess} from "../../lib/alert.js";
 import {Link} from 'react-router'
 import {userLogin} from "../../lib/api/UserApi.jsx";
-
+import {jwtDecode}  from "jwt-decode";
 
 export default function UserLogin() {
     const [identifier, setIdentifier] = useState('');
@@ -30,9 +30,21 @@ export default function UserLogin() {
             setRefreshToken(refreshToken);
             console.log(token);
             console.log(refreshToken);
-            await navigate({
-                pathname: "/dashboard/students/profile",
-            })
+            const decodedToken = jwtDecode(token);
+            const userRole= decodedToken.role;
+
+            switch (userRole){
+                case "admin":
+                    navigate('/dashboard/admin');
+                    break;
+                case "student":
+                    navigate('/dashboard/student');
+                    break;
+                case "lecturer":
+                    navigate('/dashboard/lecturer');
+                    break;
+            }
+
         }else{
             await alertError("login gagal");
         }
@@ -121,10 +133,10 @@ export default function UserLogin() {
                                 </label>
                             </div>
                             <div className="text-sm">
-                                <a href="#"
+                                <Link to="/not-found"
                                    className="font-medium text-brown-light hover:text-brown-dark transition duration-200">
                                     Lupa password?
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

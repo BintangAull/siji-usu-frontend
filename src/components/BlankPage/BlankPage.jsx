@@ -1,11 +1,11 @@
 export default function NotFound() {
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center p-4">
-            <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8 text-center">
+        <div className="min-h-screen gradient-bg flex flex-col justify-center items-center p-4">
+            <div className="max-w-md w-full bg-white shadow-custom rounded-lg p-8 text-center animate-fade-in card-hover">
                 {/* Icon Error */}
                 <div className="mb-6">
                     <svg
-                        className="mx-auto h-24 w-24 text-red-500"
+                        className="mx-auto h-24 w-24 text-brown-dark"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -20,20 +20,22 @@ export default function NotFound() {
                 </div>
 
                 {/* Error Message */}
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                <h1 className="text-4xl font-bold text-brown-dark mb-4">
                     404
                 </h1>
-                <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                <h2 className="text-2xl font-semibold text-brown-light mb-4">
                     Halaman Tidak Ditemukan
                 </h2>
-                <p className="text-gray-500 mb-8">
+                <p className="text-gray-600 mb-8 font-light">
                     Maaf, halaman yang Anda cari tidak dapat ditemukan atau tidak tersedia.
                 </p>
 
                 {/* Back Button */}
                 <button
                     onClick={() => window.history.back()}
-                    className="inline-flex items-center px-4 py-2 bg-brown-dark text-white font-semibold rounded-lg hover:bg-brown-light transition-colors duration-300"
+                    className="inline-flex items-center px-6 py-3 bg-brown-dark text-white font-medium rounded-lg
+                     hover:bg-brown-light transition-all duration-300 ease-in-out
+                     transform hover:scale-105 shadow-md"
                 >
                     <svg
                         className="w-5 h-5 mr-2"
@@ -52,5 +54,6 @@ export default function NotFound() {
                 </button>
             </div>
         </div>
+
     );
 }

@@ -21,3 +21,31 @@ export const userStudentDetail = async (token) =>{
         }
     })
 }
+
+export const userUpdatePassword = async (token, {password, newPassword}) =>{
+    return await fetch(`${import.meta.env.VITE_API_URL}/users/student/update-password`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            password,
+            newPassword
+        })
+    })
+}
+
+export const userNewToken = async ({refresh_token}) =>{
+    return await fetch(`${import.meta.env.VITE_API_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            refresh_token
+        })
+    })
+}
+

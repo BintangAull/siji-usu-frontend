@@ -4,6 +4,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router";
 import UserLogin from "./components/User/UserLogin.jsx";
 import NotFound from "./components/BlankPage/BlankPage.jsx";
 import DashboardLayout from "./components/DashboardLayout.jsx";
+import UserStudentProfile from "./components/User/UserStudentProfile.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -15,12 +16,12 @@ createRoot(document.getElementById('root')).render(
 
             <Route path="/dashboard" element={<DashboardLayout/>}>
                 <Route path="students" >
-                    <Route path="profile" element={<div>profile</div>}/>
+                    <Route path="profile" element={<UserStudentProfile/>}/>
                     <Route path="logout" element={<div>logout</div>} />
                 </Route>
 
                 <Route path="lecturers" >
-                    <Route path="profile" element={<div>profile</div>}/>
+                    <Route path="profile" element={<div>profile dosen kentod</div>}/>
                     <Route path="logout" element={<div>logout</div>} />
                 </Route>
 
