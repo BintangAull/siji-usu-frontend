@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import gambarKanan from './gambarkanan.jpg';
+import { useNavigate } from 'react-router';
+import gambarKanan from '../../components/User/gambarkanan.jpg';
 import { login } from '../../services/authService';
 
 const Login = () => {
@@ -192,7 +192,7 @@ const Login = () => {
                     <div className="mt-6 text-center">
                         <p className="text-sm text-brown-light">
                             Belum punya akun?
-                            <a href="#"
+                            <a href="/not-found"
                                className="font-medium text-brown-dark hover:text-brown-light transition duration-200">
                                 Daftar sekarang
                             </a>
@@ -201,7 +201,7 @@ const Login = () => {
                 </div>
 
 
-                <div className="hidden md:block md:w-1/2">
+                <div className="md:block md:w-[75%]">
                     <img src={gambarKanan} alt="Login Image" className="h-full w-full object-cover"/>
                 </div>
             </div>
