@@ -34,7 +34,9 @@ export default function DashboardLayout() {
 
             <main className="container mx-auto px-6 py-8 flex-grow">
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-custom border border-beige p-6 animate-fade-in">
+
                     <Outlet/>
+
                 </div>
 
                 <div className="mt-10 mb-6 text-center text-brown-light text-sm animate-fade-in">

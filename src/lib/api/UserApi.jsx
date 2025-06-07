@@ -49,3 +49,16 @@ export const userNewToken = async ({refresh_token}) =>{
     })
 }
 
+export const userLogout = async (token,{refresh_token}) => {
+    return await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            refresh_token
+        })
+    })
+}
+
