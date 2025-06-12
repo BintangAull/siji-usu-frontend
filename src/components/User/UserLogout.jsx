@@ -38,7 +38,7 @@ export default function UserLogout() {
 
         //barulah kita otak atik disini
         const response = await userLogout(token, {refresh_token});
-        if(response.status === 200){
+        if(response.status === 204){
             await alertSuccess("Logout berhasil");
             setToken('');
             setRefresh_token('');

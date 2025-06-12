@@ -1,6 +1,6 @@
 import {userStudentDetail, userUpdatePassword} from "../../lib/api/UserApi.jsx";
-import {useEffect, useState} from "react";
-import {useLocalStorage} from "react-use";
+import {useState} from "react";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {alertError, alertSuccess} from "../../lib/alert.js";
 import {useNavigate} from "react-router";
 import checkAndRefreshToken from "../../lib/CheckToken.js";
@@ -46,7 +46,7 @@ export default function UserStudentProfile() {
         }
 
         const response = await userUpdatePassword(token,{password,confirmPassword});
-        if(response.status === 200){
+        if(response.status === 204){
             await alertSuccess("Password berhasil diubah");
             setPassword('');
             setConfirmPassword('');
@@ -59,7 +59,7 @@ export default function UserStudentProfile() {
 
 
 
-    useEffect(() => {
+    useEffectOnce(() => {
         fetchUserStudentDetail()
             .then(()=> console.log("sukses"))
     })
@@ -77,7 +77,7 @@ export default function UserStudentProfile() {
             setNim(responseBody.nim)
             setDosenPa(responseBody.academic_advisor.name)
         }else{
-            alertError("gagal memuat data")
+          await  alertError("gagal memuat data")
         }
 
 

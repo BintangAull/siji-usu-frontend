@@ -1,4 +1,4 @@
-export const userLogin = async ({identifier, password}) =>{
+export const userLogin = async ({identifier, password}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/auth/login`, {
         method: 'POST',
         headers: {
@@ -9,11 +9,12 @@ export const userLogin = async ({identifier, password}) =>{
             identifier,
             password
         })
-    })
+    });
 }
 
+
 export const userStudentDetail = async (token) =>{
-    return await fetch(`${import.meta.env.VITE_API_URL}/users/student/detail`, {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/students`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -23,7 +24,7 @@ export const userStudentDetail = async (token) =>{
 }
 
 export const userUpdatePassword = async (token, {password, newPassword}) =>{
-    return await fetch(`${import.meta.env.VITE_API_URL}/users/student/update-password`, {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/auth/password`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -37,7 +38,7 @@ export const userUpdatePassword = async (token, {password, newPassword}) =>{
 }
 
 export const userNewToken = async ({refresh_token}) =>{
-    return await fetch(`${import.meta.env.VITE_API_URL}/auth/refresh`, {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/auth/refresh`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ export const userNewToken = async ({refresh_token}) =>{
 }
 
 export const userLogout = async (token,{refresh_token}) => {
-    return await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/auth/logout`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
