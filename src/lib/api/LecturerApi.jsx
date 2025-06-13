@@ -34,3 +34,21 @@ export const enrollCourseTaught = async (token, {section_id}) =>{
         })
     })
 }
+
+export const lecturerRegister = async (token,{name, email, password, nip, nidn, department_id}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            password,
+            nip,
+            nidn,
+            department_id
+        })
+    })
+}

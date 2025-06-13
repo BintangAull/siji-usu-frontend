@@ -34,3 +34,18 @@ export const enrollCourse = async (token, {section_id}) =>{
         })
     })
 }
+
+export const studentList = async (token, {id}) => {
+
+    const url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
+    if(id){url.searchParams.append('id', id)}
+
+    return await fetch(url,{
+        method : "GET",
+        headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+}

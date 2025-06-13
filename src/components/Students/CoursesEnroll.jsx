@@ -2,6 +2,7 @@ import {useEffectOnce} from "react-use";
 import {coursesAvail, enrollCourse} from "../../lib/api/StudentApi.jsx";
 import {useEffect, useState} from "react";
 import {alertError} from "../../lib/alert.js";
+import {Link} from "react-router";
 
 export default function CoursesEnroll() {
 
@@ -38,7 +39,7 @@ export default function CoursesEnroll() {
 
    }
 
-    async function fecthCoursesAvailable() {
+    async function fetchCoursesAvailable() {
         const response = await coursesAvail(token, {name})
         const responseBody = await response.json()
         console.log(responseBody)
@@ -56,7 +57,7 @@ export default function CoursesEnroll() {
     }
 
     useEffect(() => {
-        fecthCoursesAvailable()
+        fetchCoursesAvailable()
             .then(() => console.log("sukses fecth courses"))
     }, [reload]);
 
@@ -101,6 +102,16 @@ export default function CoursesEnroll() {
     })
 
     return <>
+
+        <div className="flex items-center mb-6">
+            <Link to="/dashboard/students"
+                  className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
+                <i className="fas fa-arrow-left mr-2"></i> Back to Dashboard
+            </Link>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+                <i className="fas fa-id-card text-brown-dark mr-3"></i> Enroll Details
+            </h1>
+        </div>
 
         <div
             className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-6 mb-8 animate-fade-in">

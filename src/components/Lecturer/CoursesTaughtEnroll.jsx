@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {coursesAvail, enrollCourse} from "../../lib/api/StudentApi.jsx";
 import {alertError} from "../../lib/alert.js";
 import {useEffectOnce} from "react-use";
 import {enrollCourseTaught, sectionsAvailTaught} from "../../lib/api/LecturerApi.jsx";
+import {Link} from "react-router";
 
 export default function CoursesTaughtEnroll() {
 
@@ -45,7 +45,7 @@ export default function CoursesTaughtEnroll() {
         if (response.status === 200) {
             setCourses(responseBody)
         }else {
-            alert(responseBody.errors)
+           await alertError("gataula backend la intinya ni eror")
         }
 
     }
@@ -101,6 +101,16 @@ export default function CoursesTaughtEnroll() {
     })
 
     return <>
+
+        <div className="flex items-center mb-6">
+            <Link to="/dashboard/lecturer"
+                  className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
+                <i className="fas fa-arrow-left mr-2"></i> Back to Dashboard
+            </Link>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+                <i className="fas fa-id-card text-brown-dark mr-3"></i> Enroll Details
+            </h1>
+        </div>
 
         <div
             className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-6 mb-8 animate-fade-in">

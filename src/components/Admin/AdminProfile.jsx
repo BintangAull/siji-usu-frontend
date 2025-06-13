@@ -1,25 +1,22 @@
+import { userUpdatePassword} from "../../lib/api/UserApi.jsx";
 import {useState} from "react";
 import {useEffectOnce, useLocalStorage} from "react-use";
-import {useNavigate} from "react-router";
 import {alertError, alertSuccess} from "../../lib/alert.js";
+import {useNavigate} from "react-router";
 import checkAndRefreshToken from "../../lib/CheckToken.js";
-import { userUpdatePassword} from "../../lib/api/UserApi.jsx";
-import {coursesTaught} from "../../lib/api/LecturerApi.jsx";
+import {adminDetail} from "../../lib/api/AdminApi.jsx";
 
-export default function LecturerProfile() {
-
+export default function UserAdminProfile() {
 
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [nip, setNip] = useState('');
-    const [nidn, setNidn] = useState('');
-    const [faculty,setFaculty] = useState('');
-    const [department, setDepartment]= useState('');
     const [token, setToken] = useLocalStorage('access_token', '');
+
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [refresh_token, ___] = useLocalStorage('refresh_token', '');
+    const [refresh_token, _] = useLocalStorage('refresh_token', '');
     const navigate = useNavigate();
 
 
@@ -63,12 +60,12 @@ export default function LecturerProfile() {
 
 
     useEffectOnce(() => {
-        fetchLecturertDetail()
-            .then(()=> console.log("sukses fetch data dosen "))
+        fetchAdminDetail()
+            .then(()=> console.log("sukses"))
     })
 
-    async function fetchLecturertDetail() {
-        const response = await coursesTaught(token);
+    async function fetchAdminDetail() {
+        const response = await adminDetail(token);
         const responseBody = await response.json();
         console.log(responseBody);
 
@@ -76,10 +73,6 @@ export default function LecturerProfile() {
             setName(responseBody.name)
             setEmail(responseBody.email)
             setNip(responseBody.nip)
-            setFaculty(responseBody.faculty)
-            setNidn(responseBody.nidn)
-            setDepartment(responseBody.department)
-
 
         }else{
             await  alertError("gagal memuat data")
@@ -120,23 +113,8 @@ export default function LecturerProfile() {
                         </div>
 
                         <div>
-                            <label className="block text-brown-light text-sm mb-1">Lecturer Nip </label>
+                            <label className="block text-brown-light text-sm mb-1">Admin ID (NIP)</label>
                             <div className="text-brown-dark text-lg">{nip}</div>
-                        </div>
-
-                        <div>
-                            <label className="block text-brown-light text-sm mb-1">Lecturer Nidn </label>
-                            <div className="text-brown-dark text-lg">{nidn}</div>
-                        </div>
-
-                        <div>
-                            <label className="block text-brown-light text-sm mb-1">Faculty</label>
-                            <div className="text-brown-dark text-lg">{faculty}</div>
-                        </div>
-
-                        <div>
-                            <label className="block text-brown-light text-sm mb-1">Department</label>
-                            <div className="text-brown-dark text-lg">{department}</div>
                         </div>
 
 

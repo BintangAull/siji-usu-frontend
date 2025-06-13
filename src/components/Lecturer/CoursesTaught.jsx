@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {coursesTaken} from "../../lib/api/StudentApi.jsx";
+
 import {alertError} from "../../lib/alert.js";
 import {useEffectOnce} from "react-use";
 import {Link} from "react-router";
