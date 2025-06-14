@@ -19,11 +19,15 @@ import LecturerDashboard from "./components/Admin/UserManagment/Lecturer/Lecture
 import StudentDashboard from "./components/Admin/UserManagment/Student/StudentDashboard.jsx";
 import LecturerRegister from "./components/Admin/UserManagment/Lecturer/LecturerRegister.jsx";
 import StudentRegister from "./components/Admin/UserManagment/Student/StudentRegister.jsx";
+import UpdateStudent from "./components/Admin/UserManagment/Student/UpdateStudent.jsx";
+import UpdateLecturer from "./components/Admin/UserManagment/Lecturer/UpdateLecturer.jsx";
+import RedirectLogin from "./lib/RedirectLogin.jsx";
 
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         <Routes>
+            <Route path="/" element={<RedirectLogin/>}/>
             <Route path="*" element={<NotFound/>}/>
             <Route path="/login" element={<UserLogin/>} />
 
@@ -52,11 +56,18 @@ createRoot(document.getElementById('root')).render(
                         <Route index element={<UserManagement/>}/>
                         <Route path="lecturer">
                             <Route index element={<LecturerDashboard/>}/>
+
+                            <Route path=":id">
+                                <Route path= "edit" element={<UpdateLecturer/>}/>
+                            </Route>
                             <Route path="register" element={<LecturerRegister/>}/>
                         </Route>
 
                         <Route path="student">
                             <Route index element={<StudentDashboard/>}/>
+                            <Route path=":id">
+                                <Route path= "edit" element={<UpdateStudent/>}/>
+                            </Route>
                             <Route path="register" element={<StudentRegister/>}/>
                         </Route>
                     </Route>

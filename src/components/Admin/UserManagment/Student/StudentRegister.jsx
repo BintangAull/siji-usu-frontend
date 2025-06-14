@@ -1,4 +1,7 @@
 import {useState} from "react";
+import {studentRegister} from "../../../../lib/api/StudentApi.jsx";
+import {alertError, alertSuccess} from "../../../../lib/alert.js";
+import {useNavigate} from "react-router";
 
 export default function StudentRegister() {
 
@@ -8,9 +11,19 @@ export default function StudentRegister() {
     const [nim, setNim] = useState('')
     const [major_id, setMajor] = useState(null)
     const [academic_advisor_id, setAcademicAdvisor] = useState(0)
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
+        const response = await studentRegister()
+        const responseBody = await response.json()
+        console.log(responseBody)
+        if(response.status === 201) {
+            await alertSuccess("Register student berhasil Berhasil")
+            navigate('/dashboard/admin/user/student')
+        }else {
+            await alertError("Register student gagal, cek kembali data anda, back end no info")
+        }
 
     }
 
@@ -95,7 +108,7 @@ export default function StudentRegister() {
                             </div>
                             <input type="number" id="department" name="department"
                                    className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                   placeholder="Fill the department id" required value={academic_advisor_id} onChange={(e) => setAcademicAdvisor(Number(e.target.value) || 0)}/>
+                                   placeholder="Fill the department id" required value={academic_advisor_id} onChange={(e) => setAcademicAdvisor(Number(e.target.value) )}/>
                         </div>
                     </div>
 

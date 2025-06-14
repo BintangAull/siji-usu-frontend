@@ -52,3 +52,19 @@ export const lecturerRegister = async (token,{name, email, password, nip, nidn, 
         })
     })
 }
+
+export const updateLecturer = async (token, id, {name, email, nip, nidn}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            nip,
+            nidn
+        })
+    })
+}

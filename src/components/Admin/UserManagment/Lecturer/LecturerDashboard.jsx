@@ -6,7 +6,7 @@ import {alertError} from "../../../../lib/alert.js";
 
 export default function LecturerDashboard() {
 
-    const [id, setId] = useState(0)
+    const [id, setId] = useState("")
     const [token, _] = useLocalStorage('access_token', '')
     const [lecturers, setLecturers] = useState([
         {
@@ -21,7 +21,9 @@ export default function LecturerDashboard() {
     const [reload, setReload] = useState(false)
     //fetch all lectur
     async function fetchLecturer() {
-        const response = await lecturerList(token,{id})
+        let idLecturer = Number(id)
+
+        const response = await lecturerList(token,{idLecturer})
         const responseBody = await response.json()
         console.log(responseBody)
         if (response.status === 200) {
@@ -119,7 +121,7 @@ export default function LecturerDashboard() {
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i className="fas fa-user text-amber-400"></i>
                                 </div>
-                                <input type="number" id="search_name" name="search_name" value={id} onChange={(e)=> setId(e.target.value)}
+                                <input type="number" id="search_name" name="search_name" value={id ?? ""} onChange={(e)=> setId(e.target.value)}
                                        className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
                                        placeholder="Search by id"/>
                             </div>
@@ -195,6 +197,15 @@ export default function LecturerDashboard() {
                                 <span className="font-medium w-24">Department:</span>
                                 <span>{lecturer.Department}</span>
                             </p>
+                        </div>
+
+                        <div className="mt-4 flex justify-end space-x-3">
+                            <Link to={`/dashboard/admin/user/lecturer/${lecturer.id}/edit`}
+                                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
+                            >
+                                <i className="fas fa-edit mr-2" /> Edit
+                            </Link>
+
                         </div>
                     </div>
                 </div>

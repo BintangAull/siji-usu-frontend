@@ -49,3 +49,37 @@ export const studentList = async (token, {id}) => {
     })
 
 }
+
+export const studentRegister= async (token,{name, email, password, nim, major_id, academic_advisor_id}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/students`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            password,
+            nim,
+            major_id,
+            academic_advisor_id
+        })
+    })
+}
+
+export const studentUpdate = async (token, id, {name, email, nim, academic_advisor_id}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/students/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            nim,
+            academic_advisor_id
+        })
+    })
+}
