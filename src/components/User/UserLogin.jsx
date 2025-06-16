@@ -52,7 +52,7 @@ export default function UserLogin() {
                 await alertError("login gagal");
             }
         }catch (e){
-            await alertError("login gagal");
+            await alertError(`login gagal, ${e.message}`);
             console.log(e);
         }finally {
             setLogin(false);
