@@ -23,3 +23,17 @@ export const lecturerList = async (token, {id}) => {
 
 }
 
+export const facultyList = async (token, {id}) => {
+    const url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`)
+    if(id){url.searchParams.append('id', id)}
+    return await fetch(url,{
+        method : "GET",
+        headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+
+

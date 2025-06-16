@@ -22,6 +22,9 @@ import StudentRegister from "./components/Admin/UserManagment/Student/StudentReg
 import UpdateStudent from "./components/Admin/UserManagment/Student/UpdateStudent.jsx";
 import UpdateLecturer from "./components/Admin/UserManagment/Lecturer/UpdateLecturer.jsx";
 import RedirectLogin from "./lib/RedirectLogin.jsx";
+import FacultyDashboard from "./components/Admin/AcademicManagement/Faculty/FacultyDashboard.jsx";
+import RoomDashboard from "./components/Admin/AcademicManagement/Room/RoomDashboard.jsx";
+import MajorDashboard from "./components/Admin/AcademicManagement/Major/MajorDashboard.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -49,9 +52,12 @@ createRoot(document.getElementById('root')).render(
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>
 
+
+
                 <Route path="admin">
 
                     <Route index element={<AdminDashboard/>}/>
+
                     <Route path="user">
                         <Route index element={<UserManagement/>}/>
                         <Route path="lecturer">
@@ -71,12 +77,36 @@ createRoot(document.getElementById('root')).render(
                             <Route path="register" element={<StudentRegister/>}/>
                         </Route>
                     </Route>
-                    <Route path="academic" element={<UniversityManage/>}/>
+
+
+                    <Route path="academic">
+                        <Route index element={<UniversityManage/>}/>
+                        <Route path="faculty">
+                            <Route index element={<FacultyDashboard/>}/>
+                        </Route>
+
+                        <Route path = "major">
+                            <Route index element={<MajorDashboard/>}/>
+
+                        </Route>
+
+                        <Route path = "room">
+                            <Route index element={<RoomDashboard/>}/>
+
+                        </Route>
+
+                        <Route path = "course">
+
+
+                        </Route>
+                    </Route>
+
+
+
+
                     <Route path="profile" element={<UserAdminProfile/>}/>
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>
-
-
             </Route>
 
 
