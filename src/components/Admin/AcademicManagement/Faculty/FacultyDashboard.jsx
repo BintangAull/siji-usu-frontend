@@ -17,6 +17,11 @@ export default function FacultyDashboard() {
                     "id": 23,
                     "name": "ilmu komputer",
                     "code": "2314"
+                },
+                {
+                    "id": 24,
+                    "name": "ilmu gpt",
+                    "code": "2315"
                 }
             ]
         }
@@ -91,7 +96,7 @@ export default function FacultyDashboard() {
     return <>
 
         <div className="flex items-center mb-6">
-            <Link to="/dashboard/admin/user"
+            <Link to="/dashboard/admin/academic"
                   className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
                 <i className="fas fa-arrow-left mr-2"></i> Back
             </Link>
@@ -140,7 +145,7 @@ export default function FacultyDashboard() {
 
         <div
             className="bg-brown-dark/90 rounded-xl shadow-custom overflow-hidden border-2 border-dashed border-gray-700 card-hover animate-fade-in">
-            <Link to="/dashboard/admin/user/lecturer/register" className="block p-6 h-full">
+            <Link to="/dashboard/admin/academic/faculty/register" className="block p-6 h-full">
                 <div className="flex flex-col items-center justify-center h-full text-center">
                     <div
                         className="w-20 h-20 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
@@ -160,7 +165,10 @@ export default function FacultyDashboard() {
             <div key={faculty.id}
                  className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
-                    <div
+
+
+
+                    <Link to={`/dashboard/admin/academic/faculty/${faculty.id}/department`}
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
                         <div className="flex items-center mb-3">
                             <div
@@ -179,6 +187,7 @@ export default function FacultyDashboard() {
 
 
                             <h3>Departments</h3>
+
                             <ul className="space-y-4">
                                 {faculty.departments.map((department) => (
                                     <li key={department.id} className="block"> {/* Block ensures vertical stacking */}
@@ -198,19 +207,16 @@ export default function FacultyDashboard() {
                                     </li>
                                 ))}
                             </ul>
-
-
-
                         </div>
+                    </Link>
 
-                        <div className="mt-4 flex justify-end space-x-3">
-                            <Link to={`/dashboard/admin/user/lecturer/${faculty.id}/edit`}
-                                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
-                            >
-                                <i className="fas fa-edit mr-2" /> Edit
-                            </Link>
+                    <div className="mt-4 flex justify-end space-x-3">
+                        <Link to={`/dashboard/admin/academic/faculty/${faculty.id}/edit`}
+                              className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
+                        >
+                            <i className="fas fa-edit mr-2" /> Edit
+                        </Link>
 
-                        </div>
                     </div>
                 </div>
             </div>

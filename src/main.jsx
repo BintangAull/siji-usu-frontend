@@ -25,6 +25,11 @@ import RedirectLogin from "./lib/RedirectLogin.jsx";
 import FacultyDashboard from "./components/Admin/AcademicManagement/Faculty/FacultyDashboard.jsx";
 import RoomDashboard from "./components/Admin/AcademicManagement/Room/RoomDashboard.jsx";
 import MajorDashboard from "./components/Admin/AcademicManagement/Major/MajorDashboard.jsx";
+import UpdateFaculty from "./components/Admin/AcademicManagement/Faculty/UpdateFaculty.jsx";
+import RegisterFaculty from "./components/Admin/AcademicManagement/Faculty/RegisterFaculty.jsx";
+import UpdateMajor from "./components/Admin/AcademicManagement/Major/UpdateMajor.jsx";
+import RegisterMajor from "./components/Admin/AcademicManagement/Major/RegisterMajor.jsx";
+import DepartmentList from "./components/Admin/AcademicManagement/Faculty/DepartmentList.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -83,10 +88,20 @@ createRoot(document.getElementById('root')).render(
                         <Route index element={<UniversityManage/>}/>
                         <Route path="faculty">
                             <Route index element={<FacultyDashboard/>}/>
+                            <Route path=":id">
+                                <Route path= "edit" element={<UpdateFaculty/>}/>
+                                <Route path="register" element={<RegisterMajor/>}/>
+                                <Route path="department" element={<DepartmentList/>}/>
+                            </Route>
+                            <Route path="register" element={<RegisterFaculty/>}/>
+
                         </Route>
 
                         <Route path = "major">
                             <Route index element={<MajorDashboard/>}/>
+                            <Route path = ":id">
+                                <Route path = "edit" element={<UpdateMajor/>}/>
+                            </Route>
 
                         </Route>
 

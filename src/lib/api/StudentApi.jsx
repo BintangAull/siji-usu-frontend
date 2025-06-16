@@ -37,8 +37,10 @@ export const enrollCourse = async (token, {section_id}) =>{
 
 export const studentList = async (token, {id}) => {
 
-    const url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
-    if(id){url.searchParams.append('id', id)}
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/students`)
+    if(id){
+       url = `${import.meta.env.VITE_API_PATH}/admins/users/students/${id}`
+    }
 
     return await fetch(url,{
         method : "GET",

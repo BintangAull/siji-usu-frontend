@@ -10,8 +10,10 @@ export const adminDetail = async (token) => {
 }
 
 export const lecturerList = async (token, {id}) => {
-    const url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
-    if(id){url.searchParams.append('id', id)}
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
+    if(id){
+        url = `${import.meta.env.VITE_API_PATH}/admins/users/lecturers/${id}`
+    }
 
     return await fetch(url,{
         method : "GET",
@@ -24,8 +26,10 @@ export const lecturerList = async (token, {id}) => {
 }
 
 export const facultyList = async (token, {id}) => {
-    const url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`)
-    if(id){url.searchParams.append('id', id)}
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`)
+    if(id){
+        url = `${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}`
+    }
     return await fetch(url,{
         method : "GET",
         headers:{
@@ -35,5 +39,77 @@ export const facultyList = async (token, {id}) => {
     })
 }
 
+export const updateFaculty = async (token, id, {name, faculty_code}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            faculty_code
+        })
+    })
+}
 
 
+export const facultyRegister = async (token,{name, faculty_code}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            faculty_code
+        })
+    })
+}
+
+export const majorList = async (token, {id,name}) => {
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/majors`)
+    if(id){
+        url = `${import.meta.env.VITE_API_PATH}/admins/academic/majors/${id}`
+    }
+
+    if (name){
+        url.searchParams.append('name', name)
+    }
+    return await fetch(url,{
+        method : "GET",
+        headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const updateMajor = async (token, id, {name, major_code}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            major_code
+        })
+    })
+}
+
+export const majorRegister = async (token,id, {name, major_code}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}/majors`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            major_code
+        })
+    })
+}
