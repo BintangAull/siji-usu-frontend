@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import {facultyList} from "../../../../lib/api/AdminApi.jsx";
 import {alertError} from "../../../../lib/alert.js";
-import {brown} from "@mui/material/colors";
+
 
 export default function DepartmentList() {
     const [faculties, setFaculties] = useState([
@@ -12,12 +12,12 @@ export default function DepartmentList() {
             "code": "87",
             "departments": [
                 {
-                    "id": 23,
+                    "id": 1,
                     "name": "ilmu komputer",
                     "code": "2314"
                 },
                 {
-                    "id": 24,
+                    "id": 2,
                     "name": "ilmu gpt",
                     "code": "2315"
                 }
@@ -82,7 +82,7 @@ export default function DepartmentList() {
                 <div key={department.id}
                      className="bg-brown-dark/90 m-3 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                     <div className="p-6">
-                        <div
+                        <Link to={`/dashboard/admin/academic/department/${department.id}/room`}
                             className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
                             <div className="flex items-center mb-3">
                                 <div
@@ -99,16 +99,14 @@ export default function DepartmentList() {
                                     <span>{department.code}</span>
                                 </p>
                             </div>
+                        </Link>
 
-                            <div className="mt-4 flex justify-end space-x-3">
-                                <Link to={`/dashboard/admin/user/lecturer/${department.id}/edit`}
-                                      className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
-                                >
-                                    <i className="fas fa-edit mr-2" /> Create New Rooms
-                                </Link>
-
-                            </div>
-
+                        <div className="mt-4 flex justify-end space-x-3">
+                            <Link to={`/dashboard/admin/academic/department/${department.id}/create`}
+                                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
+                            >
+                                <i className="fas fa-edit mr-2" /> Create New Rooms
+                            </Link>
 
                         </div>
                     </div>

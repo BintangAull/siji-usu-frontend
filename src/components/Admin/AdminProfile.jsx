@@ -9,7 +9,9 @@ import {adminDetail} from "../../lib/api/AdminApi.jsx";
 export default function UserAdminProfile() {
 
     const [name,setName] = useState('');
+
     const [email, setEmail] = useState('');
+
     const [nip, setNip] = useState('');
     const [token, setToken] = useLocalStorage('access_token', '');
 
@@ -62,6 +64,7 @@ export default function UserAdminProfile() {
     useEffectOnce(() => {
         fetchAdminDetail()
             .then(()=> console.log("sukses"))
+
     })
 
     async function fetchAdminDetail() {

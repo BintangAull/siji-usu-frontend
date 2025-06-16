@@ -113,3 +113,40 @@ export const majorRegister = async (token,id, {name, major_code}) => {
         })
     })
 }
+
+export const createRoom = async (token, id,{name}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name: name
+        })
+    })
+}
+
+export const roomList = async (token, {id}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+
+export const updateRoom = async (token, id, room_id,{name}) => {
+    return await fetch (`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms/${room_id}`, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name: name
+        })
+    })
+}
