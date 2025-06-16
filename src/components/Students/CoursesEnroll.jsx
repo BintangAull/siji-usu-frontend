@@ -1,7 +1,7 @@
 import {useEffectOnce} from "react-use";
 import {coursesAvail, enrollCourse} from "../../lib/api/StudentApi.jsx";
 import {useEffect, useState} from "react";
-import {alertError} from "../../lib/alert.js";
+import {alertError, alertSuccess} from "../../lib/alert.js";
 import {Link} from "react-router";
 
 export default function CoursesEnroll() {
@@ -27,7 +27,7 @@ export default function CoursesEnroll() {
         try {
             const response = await enrollCourse(token, section_id);
             if (response.status === 204) {
-                alert("Berhasil mendaftar")
+               await alertSuccess("Berhasil mendaftar")
                 setReload(!reload)
 
             }else {

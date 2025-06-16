@@ -13,40 +13,49 @@ export default function UserLogin() {
     const [_, setToken] = useLocalStorage('access_token', '');
     const [__, setRefreshToken] = useLocalStorage('refresh_token', '');
     const navigate = useNavigate();
+    const [login, setLogin] = useState(false);
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLogin(true);
 
-        const response = await userLogin({identifier, password});
-        const responseBody = await response.json();
-        console.log(responseBody);
+        try {
+            const response = await userLogin({identifier, password});
+            const responseBody = await response.json();
+            console.log(responseBody);
 
-        if (response.status === 200){
+            if (response.status === 200){
 
-            await alertSuccess("selamat datang");
-            const token = responseBody.access_token;
-            const refreshToken = responseBody.refresh_token;
-            setToken(token);
-            setRefreshToken(refreshToken);
-            console.log(token);
-            console.log(refreshToken);
-            const decodedToken = jwtDecode(token);
-            const userRole= decodedToken.role;
+                await alertSuccess("selamat datang");
+                const token = responseBody.access_token;
+                const refreshToken = responseBody.refresh_token;
+                setToken(token);
+                setRefreshToken(refreshToken);
+                console.log(token);
+                console.log(refreshToken);
+                const decodedToken = jwtDecode(token);
+                const userRole= decodedToken.role;
 
-            switch (userRole){
-                case "admin":
-                    navigate('/dashboard/admin');
-                    break;
-                case "student":
-                    navigate('/dashboard/students');
-                    break;
-                case "lecturer":
-                    navigate('/dashboard/lecturer');
-                    break;
+                switch (userRole){
+                    case "admin":
+                        navigate('/dashboard/admin');
+                        break;
+                    case "student":
+                        navigate('/dashboard/students');
+                        break;
+                    case "lecturer":
+                        navigate('/dashboard/lecturer');
+                        break;
+                }
+
+            }else{
+                await alertError("login gagal");
             }
-
-        }else{
+        }catch (e){
             await alertError("login gagal");
+            console.log(e);
+        }finally {
+            setLogin(false);
         }
     }
 
@@ -142,17 +151,16 @@ export default function UserLogin() {
 
 
                         <div>
-                            <button type="submit"
-                                    className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-brown-dark hover:bg-brown-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brown-light transition duration-200 transform hover:scale-105">
-            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-              <svg className="h-5 w-5 text-white group-hover:text-cream transition duration-200" fill="none"
-                   stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                </path>
-              </svg>
-            </span>
-                                Masuk
+                            <button
+                                type="submit"
+                                disabled={login} // 👈 Tombol disable kalau loading true
+                                className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white ${
+                                    login
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-brown-dark hover:bg-brown-light"
+                                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brown-light transition duration-200 transform hover:scale-105`}
+                            >
+                                {login? "Memproses..." : "Masuk"}
                             </button>
                         </div>
 
