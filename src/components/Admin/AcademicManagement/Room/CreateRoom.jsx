@@ -2,11 +2,12 @@ import {createRoom} from "../../../../lib/api/AdminApi.jsx";
 import {useState} from "react";
 import {useParams} from "react-router";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
+import {useLocalStorage} from "react-use";
 
 export default function CreateRoom() {
 
     const [name, setName] = useState('')
-    const [token, _] = useState('')
+    const [token, _] = useLocalStorage('access_token', '')
     const {id} = useParams();
 
     async function handleSubmit(e) {

@@ -39,7 +39,7 @@ export default function MajorDashboard(){
 
     async function fetchMajor() {
         let idMajor = Number(id)
-        const response = await majorList(token,{idMajor,name})
+        const response = await majorList(token,{id:idMajor,name})
         const responseBody = await response.json()
         console.log(responseBody)
         if (response.status === 200) {

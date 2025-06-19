@@ -58,7 +58,7 @@ export default function UpdateMajor() {
 
 
                     <div className="mb-6">
-                        <label htmlFor="faculty_code" className="block text-cream text-sm font-medium mb-2">Nidn</label>
+                        <label htmlFor="faculty_code" className="block text-cream text-sm font-medium mb-2">Major Code</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i className="fas fa-id-card text-amber-400"></i>

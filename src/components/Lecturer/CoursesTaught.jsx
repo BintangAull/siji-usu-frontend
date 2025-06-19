@@ -42,7 +42,7 @@ export default function CoursesTaught() {
         const responseBody = await response.json()
         console.log(responseBody)
         if (response.status === 200) {
-            setCourses(responseBody.courses_taken)
+            setCourses(responseBody.courses_taught)
 
         }else {
             await alertError("gatau backend ga kasih pesan")
@@ -108,12 +108,12 @@ export default function CoursesTaught() {
 
                             </div>
                         </div>
-                        <div className="mt-4 flex justify-end space-x-3">
-                            <button
-                                className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
-                                <i className="fas fa-trash-alt mr-2"></i> Unenroll Course
-                            </button>
-                        </div>
+                        {/*<div className="mt-4 flex justify-end space-x-3">*/}
+                        {/*    <button*/}
+                        {/*        className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">*/}
+                        {/*        <i className="fas fa-trash-alt mr-2"></i> Unenroll Course*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             ))}

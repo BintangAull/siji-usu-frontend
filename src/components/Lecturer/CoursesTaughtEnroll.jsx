@@ -24,7 +24,7 @@ export default function CoursesTaughtEnroll() {
     async function handleEnroll(section_id) {
         setLoading(true);
         try {
-            const response = await enrollCourseTaught(token, section_id);
+            const response = await enrollCourseTaught(token, {section_id});
             if (response.status === 204) {
                 alert("Berhasil mendaftar")
                 setReload(!reload)

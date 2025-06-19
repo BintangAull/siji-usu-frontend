@@ -27,6 +27,7 @@ export const enrollCourseTaught = async (token, {section_id}) =>{
     return await fetch(`${import.meta.env.VITE_API_PATH}/lecturers/courses/sections`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

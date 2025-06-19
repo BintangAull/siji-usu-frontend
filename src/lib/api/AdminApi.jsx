@@ -69,9 +69,9 @@ export const facultyRegister = async (token,{name, faculty_code}) => {
 }
 
 export const majorList = async (token, {id,name}) => {
-    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/majors`)
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors`)
     if(id){
-        url = `${import.meta.env.VITE_API_PATH}/admins/academic/majors/${id}`
+        url = `${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors/${id}`
     }
 
     if (name){
@@ -118,6 +118,7 @@ export const createRoom = async (token, id,{name}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -131,6 +132,7 @@ export const roomList = async (token, {id}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms`, {
         method: 'GET',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         }

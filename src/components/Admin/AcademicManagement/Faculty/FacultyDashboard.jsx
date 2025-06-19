@@ -2,7 +2,7 @@ import {Link} from "react-router";
 import {useEffect, useState} from "react";
 import {facultyList} from "../../../../lib/api/AdminApi.jsx";
 import {alertError} from "../../../../lib/alert.js";
-import {useEffectOnce} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 
 export default function FacultyDashboard() {
 
@@ -27,7 +27,7 @@ export default function FacultyDashboard() {
         }
     ])
     const [reload, setReload] = useState(false)
-    const [token, _] = useState('')
+    const [token, _] = useLocalStorage('access_token', '')
 
 
     async function handleSubmit(e) {
