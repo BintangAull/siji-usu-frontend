@@ -1,23 +1,50 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {updateLecturer} from "../../../../lib/api/LecturerApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {useLocalStorage} from "react-use";
 
 export default function UpdateLecturer() {
 
+    const navigate = useNavigate();
+    const {id} = useParams();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [nip, setNip] = useState('')
     const [nidn, setNidn] = useState('')
     const [token, _] = useLocalStorage('access_token', '')
-    const {id} = useParams();
+
+    async function getLecturer(id) {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers/${id}`)
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
+
+        setName(data.name)
+        setEmail(data.email)
+        setNip(data.nip)
+        setNidn(data.nidn)
+    }
+
+
+    useEffect(() => {
+        getLecturer(id)
+    }, []);
+
+
+
 
     async function handleSubmit(e) {
         e.preventDefault();
         const response = await updateLecturer(token, id, {name, email, nip, nidn})
         if(response.status === 204) {
-           await alertSuccess("Update Berhasil")
+            await alertSuccess("Update Berhasil")
+            navigate('/dashboard/admin/user/lecturer')
         }else {
            await alertError("Update Gagal, Cek Kembali Data Anda, back end no info")
         }

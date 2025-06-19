@@ -37,11 +37,11 @@ export const enrollCourse = async (token, {section_id}) =>{
     })
 }
 
-export const studentList = async (token, {id}) => {
+export const studentList = async (token, {name}) => {
 
     let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/students`)
-    if(id){
-       url = `${import.meta.env.VITE_API_PATH}/admins/users/students/${id}`
+    if(name){
+       url = `${import.meta.env.VITE_API_PATH}/admins/users/students?name=${name}`
     }
 
     return await fetch(url,{
@@ -76,18 +76,19 @@ export const studentRegister= async (token,{name, email, password, year, nim, ma
     })
 }
 
-export const studentUpdate = async (token, id, {name, email, nim, academic_advisor_id}) => {
+// export const studentUpdate = async (token, id, {name, email, nim, academic_advisor_id}) => {
+export const studentUpdate = async (token, id, {name, email, nim}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/students/${id}`, {
         method: 'PATCH',
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
             name,
             email,
-            nim,
-            academic_advisor_id
+            nim
         })
     })
 }

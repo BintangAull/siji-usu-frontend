@@ -12,7 +12,7 @@ export default function UserAdminProfile() {
 
     const [email, setEmail] = useState('');
 
-    const [nip, setNip] = useState('');
+    // const [nip, setNip] = useState('');
     const [token, setToken] = useLocalStorage('access_token', '');
 
     const [oldPassword, setOldPassword] = useState('');
@@ -77,7 +77,7 @@ export default function UserAdminProfile() {
         if (response.status === 200){
             setName(responseBody.name)
             setEmail(responseBody.email)
-            setNip(responseBody.nip)
+            // setNip(responseBody.nip)
 
         }else{
             await  alertError("gagal memuat data")
@@ -117,12 +117,10 @@ export default function UserAdminProfile() {
                             <div className="text-brown-dark text-lg">{email}</div>
                         </div>
 
-                        <div>
-                            <label className="block text-brown-light text-sm mb-1">Admin ID (NIP)</label>
-                            <div className="text-brown-dark text-lg">{nip}</div>
-                        </div>
-
-
+                        {/*<div>*/}
+                        {/*    <label className="block text-brown-light text-sm mb-1">Admin ID (NIP)</label>*/}
+                        {/*    <div className="text-brown-dark text-lg">{nip}</div>*/}
+                        {/*</div>*/}
 
                     </div>
                 </div>

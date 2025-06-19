@@ -60,6 +60,7 @@ export const updateLecturer = async (token, id, {name, email, nip, nidn}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers/${id}`, {
         method: 'PATCH',
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

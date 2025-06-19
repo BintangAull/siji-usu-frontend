@@ -11,13 +11,15 @@ export default function LecturerRegister() {
     const [password, setPassword] = useState('')
     const [nip, setNip] = useState('')
     const [nidn, setNidn] = useState('')
-    const[department_id, setDepartment] = useState(null)
     const [token, _] = useLocalStorage('access_token', '')
     const navigate = useNavigate();
+    const [faculties, setFaculties] = useState([{}])
+    const[faculty_id, setFacultyId] = useState(null)
     const [departments, setDepartments] = useState([{}])
+    const[department_id, setDepartmentId] = useState(null)
 
-    async function getDepartments() {
-        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors`)
+    async function getFaculties() {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`)
 
         const response = await fetch(url, {
             method: 'GET',
@@ -28,22 +30,29 @@ export default function LecturerRegister() {
         })
 
         const responseBody = await response.json()
-        console.log(responseBody)
-        setDepartments(responseBody)
+        setFaculties(responseBody)
+
+        if (responseBody.length > 0) {
+            const defaultFacultyId = responseBody[0].id
+            setFacultyId(defaultFacultyId)
+            setDepartments(responseBody[0].departments)
+        }
+
+    }
+
+    async function getDepartments(faculty_id) {
+        setDepartments(faculties[faculty_id - 1].departments)
     }
 
     useEffect(() => {
-        getDepartments()
+        getFaculties()
             .then(() => console.log(departments))
     }, []);
 
     async function handleSubmit(e) {
-        console.log(department_id)
         e.preventDefault();
 
         const response = await lecturerRegister(token, {name, email, password, nip, nidn, department_id})
-        const responseBody = await response.json()
-        console.log(responseBody)
         if(response.status === 201) {
             await alertSuccess("Register Berhasil")
             navigate('/dashboard/admin/user/lecturer')
@@ -127,21 +136,47 @@ export default function LecturerRegister() {
                         </div>
                     </div>
 
-                    <select
-                        id="department"
-                        name="department"
-                        className="mb-4 w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                        required
-                        value={department_id}
-                        onChange={(e) => setDepartment(parseInt(e.target.value))}
-                    >
-                        <option value="" disabled>-- Select Department --</option>
-                        {departments.map((dept) => (
-                            <option key={dept.id} value={dept.id}>
-                                {dept.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="mb-4">
+                        <label htmlFor="faculties" className="block text-beige text-sm font-medium mb-2">Faculty</label>
+                        <select
+                            id="faculties"
+                            name="faculties"
+                            className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                            required
+                            value={faculty_id}
+                            onChange={(e) => {
+                                const id = e.target.value;
+                                setFacultyId(parseInt(id))
+                                getDepartments(parseInt(id))
+                            }}
+                        >
+                            <option value="" disabled>-- Select Department --</option>
+                            {faculties.map((fac) => (
+                                <option key={fac.id} value={fac.id}>
+                                    {fac.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="department" className="block text-beige text-sm font-medium mb-2">Department</label>
+                        <select
+                            id="department"
+                            name="department"
+                            className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                            required
+                            value={department_id}
+                            onChange={(e) => setDepartmentId(parseInt(e.target.value))}
+                        >
+                            <option value="" disabled>-- Select Department --</option>
+                            {departments.map((dept) => (
+                                <option key={dept.id} value={dept.id}>
+                                    {dept.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
                     <div className="mb-6">
                         <button type="submit"

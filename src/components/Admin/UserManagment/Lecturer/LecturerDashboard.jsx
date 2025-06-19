@@ -6,26 +6,14 @@ import {alertError} from "../../../../lib/alert.js";
 
 export default function LecturerDashboard() {
 
-    const [id, setId] = useState("")
+    const [name, setName] = useState("")
     const [token, _] = useLocalStorage('access_token', '')
-    const [lecturers, setLecturers] = useState([
-        {
-            "id": 23,
-            "name": "Uciha Jos Timanta S.Pd.I",
-            "email": "JostGanteng2gmail.com",
-            "nip": "8787878787",
-            "nidn": "99999",
-            "faculty": "Sastra Mesin",
-        }
-    ])
+    const [lecturers, setLecturers] = useState([{}])
     const [reload, setReload] = useState(false)
-    //fetch all lectur
-    async function fetchLecturer() {
-        let idLecturer = Number(id)
 
-        const response = await lecturerList(token,{idLecturer})
+    async function fetchLecturer() {
+        const response = await lecturerList(token,{name})
         const responseBody = await response.json()
-        console.log(responseBody)
         if (response.status === 200) {
             setLecturers(responseBody)
         }else {
@@ -33,8 +21,6 @@ export default function LecturerDashboard() {
         }
 
     }
-
-
 
 
     useEffect(() => {
@@ -116,14 +102,14 @@ export default function LecturerDashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div>
                             <label htmlFor="search_name"
-                                   className="block text-beige text-sm font-medium mb-2">Search by Id</label>
+                                   className="block text-beige text-sm font-medium mb-2">Search by Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i className="fas fa-user text-amber-400"></i>
                                 </div>
-                                <input type="number" id="search_name" name="search_name" value={id ?? ""} onChange={(e)=> setId(e.target.value)}
+                                <input type="text" id="search_name" name="search_name" value={name ?? ""} onChange={(e)=> setName(e.target.value)}
                                        className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                       placeholder="Search by id"/>
+                                       placeholder="Search by name"/>
                             </div>
                         </div>
                     </div>
@@ -162,7 +148,7 @@ export default function LecturerDashboard() {
         {lecturers.map((lecturer) => (
 
             <div key={lecturer.id}
-                 className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
+                 className="mb-4 bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
                     <div
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
@@ -200,7 +186,7 @@ export default function LecturerDashboard() {
                             <p className="flex items-center">
                                 <i className="fas fa-building text-amber-400 w-6"></i>
                                 <span className="font-medium w-24">Department:</span>
-                                <span>{lecturer.Department}</span>
+                                <span>{lecturer.department}</span>
                             </p>
                         </div>
 

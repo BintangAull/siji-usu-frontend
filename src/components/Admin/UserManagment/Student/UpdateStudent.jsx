@@ -1,26 +1,66 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {studentUpdate} from "../../../../lib/api/StudentApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
+import {useNavigate, useParams} from "react-router";
 import {useLocalStorage} from "react-use";
-import {useParams} from "react-router";
 
 export default function UpdateStudent() {
+    const navigate = useNavigate();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [nim, setNim] = useState('')
-    const [academic_advisor_id, setAcademicAdvisor] = useState("")
+    // const [lecturers, setLecturers] = useState([{}])
+    // const [academic_advisor_id, setAcademicAdvisorId] = useState("")
     const [token, _] = useLocalStorage('access_token', '')
     const {id} = useParams();
+
+    async function getLecturers() {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
+        console.log(data)
+    }
+
+    async function getStudent(id) {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/students/${id}`)
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
+
+        console.log(data)
+
+        setName(data.name)
+        setEmail(data.email)
+        setNim(data.nim)
+        // setAcademicAdvisorId(data.academic_advisor.id)
+    }
+
+    useEffect(() => {
+        getStudent(id)
+        getLecturers()
+    }, []);
 
 
     async function handleSubmit(e) {
         e.preventDefault()
 
-        let advisorId_academic = Number(academic_advisor_id)
+        // let advisorId_academic = Number(academic_advisor_id)
 
-        const response = await studentUpdate(token, id, {name, email, nim, advisorId_academic})
+        const response = await studentUpdate(token, id, {name, email, nim})
         if(response.status === 204) {
            await alertSuccess("Update Berhasil")
+            navigate('/dashboard/admin/user/student')
         }else {
            await alertError("Update Gagal, Cek Kembali Data Anda, back end no info")
         }
@@ -81,20 +121,20 @@ export default function UpdateStudent() {
                         </div>
                     </div>
 
-                    <div className="mb-6">
-                        <label htmlFor="Academic_advisor" className="block text-beige text-sm font-medium mb-2">Academic Advisor</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i className="fas fa-user-tag text-amber-400"></i>
-                            </div>
-                            <input type="number" id="Academic_advisor" name="Academic_advisor" value={academic_advisor_id} onChange ={(e) => setAcademicAdvisor(Number(e.target.value))}
-                                   className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                   placeholder="Enter Academic Advisor id"  required/>
-                        </div>
-                    </div>
+                    {/*<div className="mb-6">*/}
+                    {/*    <label htmlFor="Academic_advisor" className="block text-beige text-sm font-medium mb-2">Academic Advisor</label>*/}
+                    {/*    <div className="relative">*/}
+                    {/*        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">*/}
+                    {/*            <i className="fas fa-user-tag text-amber-400"></i>*/}
+                    {/*        </div>*/}
+                    {/*        <input type="number" id="Academic_advisor" name="Academic_advisor" value={academic_advisor_id} onChange ={(e) => setAcademicAdvisorId(Number(e.target.value))}*/}
+                    {/*               className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"*/}
+                    {/*               placeholder="Enter Academic Advisor id"  required/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                     <div className="flex justify-end space-x-4">
-                        <a href="/dashboard/admin/user/lecturer/"
+                        <a href="/dashboard/admin/user/student/"
                            className="px-5 py-3 bg-brown-light/50 text-cream rounded-lg hover:bg-brown-light/70 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 flex items-center shadow-md">
                             <i className="fas fa-times mr-2"></i> Cancel
                         </a>

@@ -1,9 +1,11 @@
 import {facultyRegister} from "../../../../lib/api/AdminApi.jsx";
 import {useState} from "react";
 import {useLocalStorage} from "react-use";
+import {useNavigate} from "react-router";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 
 export default function RegisterFaculty() {
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const [faculty_code, setFacultyCode] = useState('')
     const [token, _] = useLocalStorage('access_token', '')
@@ -16,6 +18,7 @@ export default function RegisterFaculty() {
         if(response.status === 201) {
             console.log(response.status)// untuk debug aja
             await alertSuccess("Register Berhasil")
+            navigate('/dashboard/admin/academic/faculty')
         }else {
             await alertError("Register Gagal, Cek Kembali Data Anda, back end no info")
         }
@@ -52,18 +55,15 @@ export default function RegisterFaculty() {
                     </div>
 
 
-
-
-
                     <div className="mb-6">
-                        <label htmlFor="faculty_code" className="block text-cream text-sm font-medium mb-2">Nidn</label>
+                        <label htmlFor="faculty_code" className="block text-cream text-sm font-medium mb-2">Faculty Code</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i className="fas fa-id-card text-amber-400"></i>
                             </div>
                             <input type="text" id="faculty_code" name="faculty_code" value={faculty_code} onChange ={(e) => setFacultyCode(e.target.value)}
                                    className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                   placeholder="Replace your faculty code"  required/>
+                                   placeholder="Enter your faculty code"  required/>
                         </div>
                     </div>
 

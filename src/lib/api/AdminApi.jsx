@@ -9,10 +9,10 @@ export const adminDetail = async (token) => {
 
 }
 
-export const lecturerList = async (token, {id}) => {
+export const lecturerList = async (token, {name}) => {
     let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`)
-    if(id){
-        url = `${import.meta.env.VITE_API_PATH}/admins/users/lecturers/${id}`
+    if(name){
+        url = `${import.meta.env.VITE_API_PATH}/admins/users/lecturers?name=${name}`
     }
 
     return await fetch(url,{
@@ -25,11 +25,9 @@ export const lecturerList = async (token, {id}) => {
 
 }
 
-export const facultyList = async (token, {id}) => {
+export const facultyList = async (token) => {
     let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`)
-    if(id){
-        url = `${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}`
-    }
+
     return await fetch(url,{
         method : "GET",
         headers:{
@@ -43,6 +41,7 @@ export const updateFaculty = async (token, id, {name, faculty_code}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}`, {
         method: 'PATCH',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -58,6 +57,7 @@ export const facultyRegister = async (token,{name, faculty_code}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

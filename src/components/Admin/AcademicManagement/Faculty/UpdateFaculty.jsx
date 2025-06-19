@@ -1,24 +1,46 @@
 import {useParams} from "react-router";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocalStorage} from "react-use";
+import {useNavigate} from "react-router";
 import {updateFaculty} from "../../../../lib/api/AdminApi.jsx";
 
 export default function UpdateFaculty() {
+    const navigate = useNavigate()
     const {id} = useParams();
     const [name, setName] = useState('')
     const [faculty_code, setFacultyCode] = useState('')
     const [token, _] = useLocalStorage('access_token', '')
 
+    async function getFaculty(id) {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}`)
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
 
-   async function handleSubmit(e) {
+        setName(data.name)
+        setFacultyCode(data.code)
+    }
+
+    useEffect(() => {
+        getFaculty(id)
+    }, []);
+
+
+    async function handleSubmit(e) {
         e.preventDefault()
        const response = await updateFaculty(token, id, {name, faculty_code})
        if(response.status === 204) {
            alert("Update Berhasil")
+           navigate("/dashboard/admin/academic/faculty")
        }else {
            alert("Update Gagal, Cek Kembali Data Anda, back end no info")
        }
-   }
+    }
 
     return <>
         <div className="flex items-center mb-6">
@@ -49,9 +71,6 @@ export default function UpdateFaculty() {
                             </div>
                         </div>
                     </div>
-
-
-
 
 
                     <div className="mb-6">

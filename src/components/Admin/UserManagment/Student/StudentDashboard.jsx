@@ -8,31 +8,18 @@ import {alertError} from "../../../../lib/alert.js";
 
 export default function StudentDashboard() {
 
-    const [id, setId] = useState("")
-    const [students, setStudents] = useState([
-        {
-            "id": 3,
-            "name": "Lionel Bintang M.Goat",
-            "email": "JostGanteng2gmail.com",
-            "nim": "8787878787",
-            "major": "99999",
-            "faculty": "Sastra Mesin",
-        }
-    ])
+    const [name, setName] = useState("")
+    const [students, setStudents] = useState([{}])
     const [reload, setReload] = useState(false)
     const [token, _] = useLocalStorage('access_token', '')
-
-
 
     async function handleSubmit(e) {
         e.preventDefault();
         setReload(!reload)
     }
 
-    //fetch all lectur
     async function fetchStudent() {
-        let idStudent = Number(id)
-        const response = await studentList(token,{id:idStudent})
+        const response = await studentList(token,{name})
         const responseBody = await response.json()
         console.log(responseBody)
         if (response.status === 200) {
@@ -40,11 +27,7 @@ export default function StudentDashboard() {
         }else {
             await alertError("gatau eror nya apa back end ga set pesan eror")
         }
-
     }
-
-
-
 
     useEffect(() => {
         fetchStudent()
@@ -119,14 +102,14 @@ export default function StudentDashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div>
                             <label htmlFor="search_name"
-                                   className="block text-beige text-sm font-medium mb-2">Search by Id</label>
+                                   className="block text-beige text-sm font-medium mb-2">Search by Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i className="fas fa-user text-amber-400"></i>
                                 </div>
-                                <input type="number" id="search_name" name="search_name" value={id} onChange={(e)=> setId(e.target.value)}
+                                <input type="text" id="search_name" name="search_name" value={name ?? ""} onChange={(e)=> setName(e.target.value)}
                                        className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                       placeholder="Search by id"/>
+                                       placeholder="Search by name"/>
                             </div>
                         </div>
                     </div>
@@ -160,7 +143,7 @@ export default function StudentDashboard() {
 
         {students.map((student) => (
             <div key={student.id}
-                 className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
+                 className="mb-4 bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
                     <div
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
