@@ -16,6 +16,7 @@ export const sectionsAvailTaught = async (token, {name}) =>{
     return await fetch(url,{
         method : "GET",
         headers:{
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         }

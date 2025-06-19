@@ -15,6 +15,7 @@ export const coursesAvail = async (token, {name}) =>{
     return await fetch(url,{
         method : "GET",
         headers:{
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         }
@@ -26,6 +27,7 @@ export const enrollCourse = async (token, {section_id}) =>{
     return await fetch(`${import.meta.env.VITE_API_PATH}/students/courses/sections`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -45,6 +47,7 @@ export const studentList = async (token, {id}) => {
     return await fetch(url,{
         method : "GET",
         headers:{
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         }
@@ -52,10 +55,11 @@ export const studentList = async (token, {id}) => {
 
 }
 
-export const studentRegister= async (token,{name, email, password, nim, major_id, academic_advisor_id}) => {
+export const studentRegister= async (token,{name, email, password, year, nim, major_id, academic_advisor_id}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/students`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -63,9 +67,11 @@ export const studentRegister= async (token,{name, email, password, nim, major_id
             name,
             email,
             password,
+            year,
             nim,
             major_id,
             academic_advisor_id
+
         })
     })
 }

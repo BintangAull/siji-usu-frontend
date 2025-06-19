@@ -2,6 +2,7 @@ import {useState} from "react";
 import {studentRegister} from "../../../../lib/api/StudentApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 import {useNavigate} from "react-router";
+import {useEffectOnce, useLocalStorage} from "react-use";
 
 export default function StudentRegister() {
 
@@ -9,13 +10,16 @@ export default function StudentRegister() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [nim, setNim] = useState('')
-    const [major_id, setMajor] = useState(null)
+    const[department_id, setDepartment] = useState(null)
     const [academic_advisor_id, setAcademicAdvisor] = useState(0)
     const navigate = useNavigate();
 
+    const [departments, setDepartments] = useState([{}])
+    const [token, _] = useLocalStorage('access_token', '')
+
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await studentRegister()
+        const response = await studentRegister(token, {name, email, password, year: 2022, nim, major_id: department_id, academic_advisor_id})
         const responseBody = await response.json()
         console.log(responseBody)
         if(response.status === 201) {
@@ -26,6 +30,28 @@ export default function StudentRegister() {
         }
 
     }
+
+
+    async function getDepartments() {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors`)
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const responseBody = await response.json()
+        console.log(responseBody)
+        setDepartments(responseBody)
+    }
+
+    useEffectOnce(() => {
+        getDepartments()
+            .then(() => console.log("sukes list major"))
+    })
 
     return<>
         <div className="min-h-screen flex items-center justify-center px-4 gradient-bg">
@@ -88,17 +114,21 @@ export default function StudentRegister() {
                         </div>
                     </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="nidn" className="block text-beige text-sm font-medium mb-2">Major Id</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i className="fas fa-id-card text-amber-400"></i>
-                            </div>
-                            <input type="number" id="nidn" name="nidn"
-                                   className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                   placeholder="Fill the major id" required value={major_id} onChange={(e) => setMajor(Number(e.target.value) )}/>
-                        </div>
-                    </div>
+                    <select
+                        id="department"
+                        name="department"
+                        className="mb-4 w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                        required
+                        value={department_id}
+                        onChange={(e) => setDepartment(parseInt(e.target.value))}
+                    >
+                        <option value="" disabled>-- Select Department --</option>
+                        {departments.map((dept) => (
+                            <option key={dept.id} value={dept.id}>
+                                {dept.name}
+                            </option>
+                        ))}
+                    </select>
 
                     <div className="mb-4">
                         <label htmlFor="department" className="block text-beige text-sm font-medium mb-2">Academic Advisor Id</label>

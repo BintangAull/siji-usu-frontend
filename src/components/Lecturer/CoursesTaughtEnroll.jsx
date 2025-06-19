@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {alertError} from "../../lib/alert.js";
-import {useEffectOnce} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {enrollCourseTaught, sectionsAvailTaught} from "../../lib/api/LecturerApi.jsx";
 import {Link} from "react-router";
 
@@ -15,7 +15,7 @@ export default function CoursesTaughtEnroll() {
             "lecturer": "Mandrib"
         }
     ])
-    const [token, _] = useState('')
+    const [token, _] = useLocalStorage('access_token', '')
     // state untuk refresh token jangan lupa ditambahkan
     const [name, setName] = useState('')
     const [reload, setReload] = useState(false)

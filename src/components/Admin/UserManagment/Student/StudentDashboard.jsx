@@ -1,5 +1,5 @@
 import {Link} from "react-router";
-import {useEffectOnce} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {useEffect, useState} from "react";
 import {studentList} from "../../../../lib/api/StudentApi.jsx";
 import {alertError} from "../../../../lib/alert.js";
@@ -20,7 +20,7 @@ export default function StudentDashboard() {
         }
     ])
     const [reload, setReload] = useState(false)
-    const [token, _] = useState('')
+    const [token, _] = useLocalStorage('access_token', '')
 
 
 
@@ -32,7 +32,7 @@ export default function StudentDashboard() {
     //fetch all lectur
     async function fetchStudent() {
         let idStudent = Number(id)
-        const response = await studentList(token,{idStudent})
+        const response = await studentList(token,{id:idStudent})
         const responseBody = await response.json()
         console.log(responseBody)
         if (response.status === 200) {

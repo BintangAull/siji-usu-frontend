@@ -1,4 +1,4 @@
-import {useEffectOnce} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {coursesAvail, enrollCourse} from "../../lib/api/StudentApi.jsx";
 import {useEffect, useState} from "react";
 import {alertError, alertSuccess} from "../../lib/alert.js";
@@ -16,7 +16,7 @@ export default function CoursesEnroll() {
             "lecturer": "Mandrib"
         }
     ])
-    const [token, _] = useState('')
+    const [token, _] = useLocalStorage('access_token', '')
     // state untuk refresh token jangan lupa ditambahkan
     const [name, setName] = useState('')
     const [reload, setReload] = useState(false)
@@ -25,7 +25,7 @@ export default function CoursesEnroll() {
    async function handleEnroll(section_id) {
         setLoading(true);
         try {
-            const response = await enrollCourse(token, section_id);
+            const response = await enrollCourse(token, {section_id});
             if (response.status === 204) {
                await alertSuccess("Berhasil mendaftar")
                 setReload(!reload)

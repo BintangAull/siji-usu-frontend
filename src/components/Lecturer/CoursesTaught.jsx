@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 import {alertError} from "../../lib/alert.js";
-import {useEffectOnce} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {Link} from "react-router";
 import {coursesTaught} from "../../lib/api/LecturerApi.jsx";
 
@@ -17,7 +17,7 @@ export default function CoursesTaught() {
             "lecturer": "Mandrib"
         }
     ])
-    const [token, __] = useState('')
+    const [token, __] = useLocalStorage('access_token', '')
 
 
     async function fetchCoursesTaught() {
@@ -41,7 +41,7 @@ export default function CoursesTaught() {
         const response = await coursesTaught(token)
         const responseBody = await response.json()
         console.log(responseBody)
-        if (response.status === 204) {
+        if (response.status === 200) {
             setCourses(responseBody.courses_taken)
 
         }else {
@@ -64,7 +64,7 @@ export default function CoursesTaught() {
 
             <div
                 className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom overflow-hidden border-2 border-dashed border-gray-700 card-hover animate-fade-in">
-                <Link to="/dashboard/students/sections" className="block p-6 h-full">
+                <Link to="/dashboard/lecturer/sections" className="block p-6 h-full">
                     <div className="flex flex-col items-center justify-center h-full text-center">
                         <div
                             className="w-20 h-20 bg-gradient rounded-full flex items-center justify-center mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">

@@ -16,7 +16,8 @@ export default function LecturerProfile() {
     const [faculty,setFaculty] = useState('');
     const [department, setDepartment]= useState('');
     const [token, setToken] = useLocalStorage('access_token', '');
-    const [password, setPassword] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [refresh_token, ___] = useLocalStorage('refresh_token', '');
@@ -26,7 +27,7 @@ export default function LecturerProfile() {
 
     async function handleSubmitPassword(e) {
         e.preventDefault();
-        if(password !== confirmPassword){
+        if(newPassword !== confirmPassword){
             await alertError("Password not match, please try again")
             return;
         }
@@ -48,10 +49,11 @@ export default function LecturerProfile() {
             }
         }
 
-        const response = await userUpdatePassword(token,{password,confirmPassword});
+        const response = await userUpdatePassword(token,{oldPassword, newPassword});
         if(response.status === 204){
             await alertSuccess("Password berhasil diubah");
-            setPassword('');
+            setOldPassword('');
+            setNewPassword('');
             setConfirmPassword('');
         }else{
             await alertError("Password gagal diubah");
@@ -156,6 +158,27 @@ export default function LecturerProfile() {
                     </div>
                     <form onSubmit={handleSubmitPassword}>
                         <div className="mb-5">
+                            <label htmlFor="old_password" className="block text-brown-light text-sm font-medium mb-2">
+                                Old Password
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i className="fas fa-lock text-brown-light"></i>
+                                </div>
+                                <input type="password"
+                                       id="old_password"
+                                       name="old_password"
+                                       value={oldPassword}
+                                       onChange={(e) => setOldPassword(e.target.value)}
+                                       className="w-full pl-10 pr-3 py-3 bg-cream/50 border border-beige text-brown-dark rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-brown-light focus:border-transparent
+                                        transition duration-200"
+                                       placeholder="Enter your new password"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div className="mb-5">
                             <label htmlFor="new_password" className="block text-brown-light text-sm font-medium mb-2">
                                 New Password
                             </label>
@@ -166,8 +189,8 @@ export default function LecturerProfile() {
                                 <input type="password"
                                        id="new_password"
                                        name="new_password"
-                                       value={password}
-                                       onChange={(e) => setPassword(e.target.value)}
+                                       value={newPassword}
+                                       onChange={(e) => setNewPassword(e.target.value)}
                                        className="w-full pl-10 pr-3 py-3 bg-cream/50 border border-beige text-brown-dark rounded-lg
                                         focus:outline-none focus:ring-2 focus:ring-brown-light focus:border-transparent
                                         transition duration-200"
