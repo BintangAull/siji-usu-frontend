@@ -23,16 +23,17 @@ export const userStudentDetail = async (token) =>{
     })
 }
 
-export const userUpdatePassword = async (token, {password, newPassword}) =>{
+export const userUpdatePassword = async (token, { oldPassword ,newPassword}) =>{
     return await fetch(`${import.meta.env.VITE_API_PATH}/auth/password`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-            password,
-            newPassword
+            old_password: oldPassword,
+            new_password : newPassword,
         })
     })
 }
@@ -54,6 +55,7 @@ export const userLogout = async (token,{refresh_token}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/auth/logout`, {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

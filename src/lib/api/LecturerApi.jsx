@@ -39,6 +39,7 @@ export const lecturerRegister = async (token,{name, email, password, nip, nidn, 
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/users/lecturers`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

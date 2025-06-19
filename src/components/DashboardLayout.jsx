@@ -22,11 +22,11 @@ export default function DashboardLayout() {
     //fungsi ambil role untuk href
 
     const getBaseUrl = () => {
-        if (userRole === 'admin'){
+        if (userRole === 'Admin'){
             return 'admin'
-        }else if (userRole === 'lecturer'){
+        }else if (userRole === 'Lecturer'){
             return 'lecturer'
-        } else if (userRole === 'student'){
+        } else if (userRole === 'Student'){
             return 'students'
         }
 
@@ -40,7 +40,7 @@ export default function DashboardLayout() {
         <div className="gradient-bg min-h-screen flex flex-col">
             <header className="bg-brown-dark/90 backdrop-blur-sm shadow-custom">
                 <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                    <Link to={`/dashboard/${getBaseUrl()}/profile`}className="flex items-center hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                    <Link to={`/dashboard/${getBaseUrl()}`} className="flex items-center hover:opacity-90 transition-all duration-300 transform hover:scale-105">
                         <i className="fas fa-university text-cream text-2xl mr-3"></i>
                         <div className="text-cream font-bold text-xl">SIJI USU ZEUS</div>
                     </Link>

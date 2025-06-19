@@ -37,13 +37,13 @@ export default function UserLogin() {
                 const userRole= decodedToken.role;
 
                 switch (userRole){
-                    case "admin":
+                    case "Admin":
                         navigate('/dashboard/admin');
                         break;
-                    case "student":
+                    case "Student":
                         navigate('/dashboard/students');
                         break;
-                    case "lecturer":
+                    case "Lecturer":
                         navigate('/dashboard/lecturer');
                         break;
                 }

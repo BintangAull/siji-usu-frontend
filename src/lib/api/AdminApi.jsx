@@ -1,5 +1,5 @@
 export const adminDetail = async (token) => {
-    return await fetch(`${import.meta.env.VITE_API_PATH}/admin`, {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

@@ -155,7 +155,12 @@ export default function LecturerDashboard() {
             <br/>
         </div>
 
+        <div className="flex flex-col gap-6 ">
+
+        </div>
+
         {lecturers.map((lecturer) => (
+
             <div key={lecturer.id}
                  className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
@@ -210,6 +215,8 @@ export default function LecturerDashboard() {
                     </div>
                 </div>
             </div>
+
+
         ))}
     </>
 

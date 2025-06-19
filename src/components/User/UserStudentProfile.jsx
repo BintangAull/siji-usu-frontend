@@ -46,6 +46,8 @@ export default function UserStudentProfile() {
         }
 
         const response = await userUpdatePassword(token,{password,confirmPassword});
+        const payload = { password, confirmPassword };
+        console.log('Payload yang dikirim:', payload);
         if(response.status === 204){
             await alertSuccess("Password berhasil diubah");
             setPassword('');

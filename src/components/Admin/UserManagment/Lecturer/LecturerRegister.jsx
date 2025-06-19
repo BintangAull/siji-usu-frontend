@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {lecturerRegister} from "../../../../lib/api/LecturerApi.jsx";
 import {useLocalStorage} from "react-use";
 import {useNavigate} from "react-router";
@@ -14,8 +14,31 @@ export default function LecturerRegister() {
     const[department_id, setDepartment] = useState(null)
     const [token, _] = useLocalStorage('access_token', '')
     const navigate = useNavigate();
+    const [departments, setDepartments] = useState([{}])
+
+    async function getDepartments() {
+        let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors`)
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        const responseBody = await response.json()
+        console.log(responseBody)
+        setDepartments(responseBody)
+    }
+
+    useEffect(() => {
+        getDepartments()
+            .then(() => console.log(departments))
+    }, []);
 
     async function handleSubmit(e) {
+        console.log(department_id)
         e.preventDefault();
 
         const response = await lecturerRegister(token, {name, email, password, nip, nidn, department_id})
@@ -104,17 +127,21 @@ export default function LecturerRegister() {
                         </div>
                     </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="department" className="block text-beige text-sm font-medium mb-2">Department_id</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i className="fas fa-building text-amber-400"></i>
-                            </div>
-                            <input type="number" id="department" name="department"
-                                   className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                   placeholder="Fill the department id" required value={department_id} onChange={(e) => setDepartment(e.target.value)}/>
-                        </div>
-                    </div>
+                    <select
+                        id="department"
+                        name="department"
+                        className="mb-4 w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                        required
+                        value={department_id}
+                        onChange={(e) => setDepartment(parseInt(e.target.value))}
+                    >
+                        <option value="" disabled>-- Select Department --</option>
+                        {departments.map((dept) => (
+                            <option key={dept.id} value={dept.id}>
+                                {dept.name}
+                            </option>
+                        ))}
+                    </select>
 
                     <div className="mb-6">
                         <button type="submit"
