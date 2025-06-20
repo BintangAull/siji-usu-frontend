@@ -1,6 +1,6 @@
 import {createRoom} from "../../../../lib/api/AdminApi.jsx";
 import {useState} from "react";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 import {useLocalStorage} from "react-use";
 
@@ -15,7 +15,8 @@ export default function CreateRoom() {
         const response = await createRoom(token,id, {name})
         console.log(response.status)
         if(response.status === 201) {
-           await alertSuccess("Create Room Berhasil")
+            await alertSuccess("Create Room Berhasil")
+            setName('')
         }else {
            await alertError("Create Room Gagal, Cek Kembali Data Anda, back end no info")
         }

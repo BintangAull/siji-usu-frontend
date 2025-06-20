@@ -1,7 +1,7 @@
 import {useParams} from "react-router";
-import {useLocalStorage} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 import {useState} from "react";
-import {updateMajor} from "../../../../lib/api/AdminApi.jsx";
+import {getMajorById, updateMajor} from "../../../../lib/api/AdminApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 
 export default function UpdateMajor() {
@@ -10,6 +10,18 @@ export default function UpdateMajor() {
     const [token, _] = useLocalStorage('access_token', '')
     const [name, setName] = useState('')
     const [major_code, setMajorCode] = useState('')
+
+    async function getMajor(token, id) {
+        const response = await getMajorById(token, {id})
+        const data = await response.json()
+
+        setName(data.name)
+        setMajorCode(data.code)
+    }
+
+    useEffectOnce(() => {
+        getMajor(token, id)
+    })
 
 
     async function handleSubmit(e) {
@@ -48,7 +60,7 @@ export default function UpdateMajor() {
                                 </div>
                                 <input type="text" id="majorName" name="majorName" value={name} onChange={(e) => setName(e.target.value)}
                                        className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                       placeholder="Enter Your New Faculty Name" required/>
+                                       placeholder="Enter Your New Major Name" required/>
                             </div>
                         </div>
                     </div>

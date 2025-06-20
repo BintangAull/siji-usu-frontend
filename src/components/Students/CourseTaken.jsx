@@ -7,13 +7,6 @@ import {alertError} from "../../lib/alert.js";
 export default function CourseTaken() {
 
     const [courses, setCourses] = useState([
-        {
-            "id": 23,
-            "course_name": "Matematika Diskrit",
-            "section_name": "Peluang",
-            "room": "103",
-            "lecturer": "Mandrib"
-        }
     ])
     const [token, _] = useLocalStorage('access_token', '')
 
@@ -96,12 +89,12 @@ export default function CourseTaken() {
                                 <p className="flex items-center">
                                     <i className="fas fa-user-tag text-gray-500 w-6"></i>
                                     <span className="font-medium w-24">Room:</span>
-                                    <span>{course.room}</span>
+                                    <span>{course.room == null ? "-" : course.room }</span>
                                 </p>
                                 <p className="flex items-center">
                                     <i className="fas fa-envelope text-gray-500 w-6"></i>
                                     <span className="font-medium w-24">Lecturer:</span>
-                                    <span>{course.lecturer}</span>
+                                    <span>{course.lecturer == null ? "-" : course.lecturer}</span>
                                 </p>
 
                             </div>

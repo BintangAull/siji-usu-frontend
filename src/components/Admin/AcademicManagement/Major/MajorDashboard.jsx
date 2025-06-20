@@ -9,26 +9,7 @@ export default function MajorDashboard(){
     const [id, setId] = useState("")
     const [reload, setReload] = useState(false)
     const [token, _] = useLocalStorage('access_token', '')
-    const [majors, setMajors] = useState([
-        {
-            "id": 23,
-            "name": "jurusan gpt",
-            "code": "2314",
-            "faculty": {
-                "id": 23,
-                "name": "fasilkomti",
-                "code": "87"
-            },
-            "rooms": [
-                {
-                    "id": 23,
-                    "name": "Kelas Aman"
-                }
-
-            ]
-        }
-
-    ])
+    const [majors, setMajors] = useState([])
     const [name, setName] = useState("")
 
 
@@ -144,18 +125,6 @@ export default function MajorDashboard(){
                             </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="search_id"
-                                   className="block text-beige text-sm font-medium mb-2">Search by Id</label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i className="fas fa-user text-amber-400"></i>
-                                </div>
-                                <input type="number" id="search_id" name="search_id" value={id ?? ""} onChange={(e)=> setId(e.target.value)}
-                                       className="w-full pl-10 pr-3 py-3 bg-brown-light/30 border border-gray-600 text-cream rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-                                       placeholder="Search by id"/>
-                            </div>
-                        </div>
                     </div>
                     <div className="mt-5 text-right">
                         <button type="submit"
@@ -176,7 +145,7 @@ export default function MajorDashboard(){
 
         {majors.map((major) => (
             <div key={major.id}
-                 className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
+                 className="mb-4 bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
                     <Link to={`/dashboard/admin/academic/major/${major.id}`}
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
@@ -195,35 +164,38 @@ export default function MajorDashboard(){
                                 <span>{major.code}</span>
                             </p>
 
-                            <h3>Faculty</h3>
+                            {/*<h3>Faculty</h3>*/}
                             <p className="flex items-center">
                                 <i className="fas fa-envelope text-amber-400 w-6"></i>
                                 <span className="font-medium w-24">Faculty :</span>
                                 <span>{major.faculty.name}</span>
                             </p>
 
-                            <p className="flex items-center">
-                                <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                <span className="font-medium w-24">Code :</span>
-                                <span>{major.faculty.code}</span>
-                            </p>
+                            {/*<p className="flex items-center">*/}
+                            {/*    <i className="fas fa-envelope text-amber-400 w-6"></i>*/}
+                            {/*    <span className="font-medium w-24">Code :</span>*/}
+                            {/*    <span>{major.faculty.code}</span>*/}
+                            {/*</p>*/}
 
-                            <h3>Room </h3>
-                            <ul className="space-y-4">
-                                {major.rooms.map((room) => (
-                                    <li key={room.id} className="block"> {/* Block ensures vertical stacking */}
-                                        <div className="flex flex-col space-y-2"> {/* flex-col makes flex items stack vertically */}
-                                            <p className="flex items-center">
-                                                <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                                <span className="font-medium w-24">Room {room.id}:</span>
-                                                <span>{room.name}</span>
-                                            </p>
+                            { major.rooms.length > 0 && (
+                                <>
+                                    <h3>Room </h3>
+                                    <ul className="space-y-4">
+                                        {[...major.rooms]  // membuat salinan array agar tidak mutasi state asli
+                                            .sort((a, b) => a.name.localeCompare(b.name))  // sort berdasarkan nama
+                                            .map((room) => (
+                                                <li key={room.id} className="block">
+                                                    <div className="flex flex-col space-y-2">
+                                                        <p className="flex items-center">
+                                                            <span>- {room.name}</span>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                    </ul>
 
-
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
+                                </>
+                            ) }
                         </div>
                     </Link>
 

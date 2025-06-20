@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {alertError} from "../../lib/alert.js";
+import {alertError, alertSuccess} from "../../lib/alert.js";
 import {useEffectOnce, useLocalStorage} from "react-use";
 import {enrollCourseTaught, sectionsAvailTaught} from "../../lib/api/LecturerApi.jsx";
 import {Link} from "react-router";
@@ -26,7 +26,7 @@ export default function CoursesTaughtEnroll() {
         try {
             const response = await enrollCourseTaught(token, {section_id});
             if (response.status === 204) {
-                alert("Berhasil mendaftar")
+                await alertSuccess("Berhasil mendaftar")
                 setReload(!reload)
 
             }else {
@@ -154,7 +154,7 @@ export default function CoursesTaughtEnroll() {
 
         {courses.map((course) => (
             <div key={course.id}
-                 className="bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
+                 className="mb-4 bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
                     <div
                         className="block cursor-pointer hover:bg-gray-700 rounded-lg transition-all duration-200 p-3">
@@ -175,12 +175,12 @@ export default function CoursesTaughtEnroll() {
                             <p className="flex items-center">
                                 <i className="fas fa-user-tag text-gray-500 w-6"></i>
                                 <span className="font-medium w-24">Room:</span>
-                                <span>{course.room}</span>
+                                <span>{course.room == null ? "-" : course.room}</span>
                             </p>
                             <p className="flex items-center">
                                 <i className="fas fa-envelope text-gray-500 w-6"></i>
                                 <span className="font-medium w-24">Lecturer:</span>
-                                <span>{course.lecturer}</span>
+                                <span>{course.lecturer == null ? "-" : course.lecturer}</span>
                             </p>
 
                         </div>

@@ -99,6 +99,17 @@ export const majorList = async (token, {id,name}) => {
     })
 }
 
+export const getMajorById = async (token, {id}) => {
+    let url = new URL(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors/${id}`)
+    return await fetch(url,{
+        method : "GET",
+        headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export const updateMajor = async (token, id, {name, major_code}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors/${id}`, {
         method: 'PATCH',

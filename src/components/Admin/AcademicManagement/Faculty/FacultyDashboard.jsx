@@ -8,23 +8,6 @@ export default function FacultyDashboard() {
 
     // const [id, setId] = useState("")
     const [faculties, setFaculties] = useState([
-        {
-            "id": 23,
-            "name": "fasilkomti",
-            "code": "87",
-            "departments": [
-                {
-                    "id": 23,
-                    "name": "ilmu komputer",
-                    "code": "2314"
-                },
-                {
-                    "id": 24,
-                    "name": "ilmu gpt",
-                    "code": "2315"
-                }
-            ]
-        }
     ])
     // const [reload, setReload] = useState(false)
     const [token, _] = useLocalStorage('access_token', '')

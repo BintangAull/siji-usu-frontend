@@ -98,12 +98,12 @@ export default function CoursesTaught() {
                                 <p className="flex items-center">
                                     <i className="fas fa-user-tag text-gray-500 w-6"></i>
                                     <span className="font-medium w-24">Room:</span>
-                                    <span>{course.room}</span>
+                                    <span>{course.room == null ? "-" : course.room}</span>
                                 </p>
                                 <p className="flex items-center">
                                     <i className="fas fa-envelope text-gray-500 w-6"></i>
                                     <span className="font-medium w-24">Lecturer:</span>
-                                    <span>{course.lecturer}</span>
+                                    <span>{course.lecturer == null ? "-" : course.lecturer}</span>
                                 </p>
 
                             </div>

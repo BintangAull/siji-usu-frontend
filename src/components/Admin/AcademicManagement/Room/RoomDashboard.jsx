@@ -61,13 +61,13 @@ export default function  RoomDashboard(){
                                 <h2 className="text-xl font-semibold text-cream hover:text-amber-300 transition-colors duration-200">{room.name}
                                 </h2>
                             </div>
-                            <div className="space-y-3 text-beige ml-2">
-                                <p className="flex items-center">
-                                    <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                    <span className="font-medium w-24">Code :</span>
-                                    <span>{room.id}</span>
-                                </p>
-                            </div>
+                            {/*<div className="space-y-3 text-beige ml-2">*/}
+                            {/*    <p className="flex items-center">*/}
+                            {/*        <i className="fas fa-envelope text-amber-400 w-6"></i>*/}
+                            {/*        <span className="font-medium w-24">Code :</span>*/}
+                            {/*        <span>{room.id}</span>*/}
+                            {/*    </p>*/}
+                            {/*</div>*/}
                         </div>
 
                         <div className="mt-4 flex justify-end space-x-3">
