@@ -103,6 +103,7 @@ export const updateMajor = async (token, id, {name, major_code}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/majors/${id}`, {
         method: 'PATCH',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -117,6 +118,7 @@ export const majorRegister = async (token,id, {name, major_code}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/faculties/${id}/majors`, {
         method: 'POST',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },
@@ -157,6 +159,7 @@ export const updateRoom = async (token, id, room_id,{name}) => {
     return await fetch (`${import.meta.env.VITE_API_PATH}/admins/academic/departments/${id}/rooms/${room_id}`, {
         method: 'PATCH',
         headers: {
+            'content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         },

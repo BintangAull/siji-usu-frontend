@@ -34,6 +34,8 @@ import CreateRoom from "./components/Admin/AcademicManagement/Room/CreateRoom.js
 import UpdateRoom from "./components/Admin/AcademicManagement/Room/UpdateRoom.jsx";
 import CoursesDashboard from "./components/Admin/AcademicManagement/Courses/CoursesDashboard.jsx";
 import CreateCourse from "./components/Admin/AcademicManagement/Courses/CreateCourse.jsx";
+import SectionDashboard from "./components/Admin/AcademicManagement/Courses/SectionDashboard.jsx";
+import CreateCourseSection from "./components/Admin/AcademicManagement/Courses/CreateCourseSection.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -105,6 +107,8 @@ createRoot(document.getElementById('root')).render(
                             <Route index element={<MajorDashboard/>}/>
                             <Route path = ":id">
                                 <Route index element={<CoursesDashboard/>}/>
+                                <Route  path="section" element={<SectionDashboard/>}/>
+                                <Route path= "newSection" element={<CreateCourseSection/>} />
                                 <Route path = "course" element={<CreateCourse/>}/>
                                 <Route path = "edit" element={<UpdateMajor/>}/>
                             </Route>

@@ -30,6 +30,17 @@ export default function CoursesDashboard() {
     })
 
     return <>
+
+        <div className="flex items-center mb-6">
+            <a href={`/dashboard/admin/academic/major`}
+               className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
+                <i className="fas fa-arrow-left mr-2"></i> Back to Major
+            </a>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center">
+                <i className="fas fa-user-edit text-brown-dark mr-3"></i> Dashboard Courses
+            </h1>
+        </div>
+
         <div className="m-3 bg-brown-dark/90 rounded-xl shadow-custom overflow-hidden border-2 border-dashed border-gray-700 card-hover animate-fade-in">
             <Link to={`/dashboard/admin/academic/major/${id}/course`} className="block p-6 h-full">
                 <div className="flex flex-col items-center justify-center h-full text-center">
@@ -47,7 +58,7 @@ export default function CoursesDashboard() {
             <div key={course.id}
                  className="bg-brown-dark/90 m-3 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
-                    <div
+                    <Link to={`/dashboard/admin/academic/major/${course.id}/section`}
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
                         <div className="flex items-center mb-3">
                             <div
@@ -64,7 +75,7 @@ export default function CoursesDashboard() {
                                 <span>{course.id}</span>
                             </p>
                         </div>
-                    </div>
+                    </Link>
 
                     {/*<div className="mt-4 flex justify-end space-x-3">*/}
                     {/*    <Link to={`/dashboard/admin/academic/department/${id}/room/${room.id}/edit`}*/}

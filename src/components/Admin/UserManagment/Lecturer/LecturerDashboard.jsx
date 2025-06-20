@@ -185,7 +185,7 @@ export default function LecturerDashboard() {
 
                             <p className="flex items-center">
                                 <i className="fas fa-building text-amber-400 w-6"></i>
-                                <span className="font-medium w-24">Department: </span>
+                                <span className="font-medium w-24">Major: </span>
                                 <span>{lecturer.department}</span>
                             </p>
                         </div>
