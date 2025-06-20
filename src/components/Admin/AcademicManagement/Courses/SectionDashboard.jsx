@@ -10,7 +10,7 @@ export default function SectionDashboard() {
 
     const [sections, setSections] = useState({})
 
-    async function fetchSection(token, {id}) {
+    async function fetchSections(token, {id}) {
         const response = await sectionList(token, {id})
         if (response.status === 200) {
             const responseBody = await response.json()
@@ -21,18 +21,18 @@ export default function SectionDashboard() {
     }
 
     useEffectOnce(() => {
-        fetchSection(token, {id})
+        fetchSections(token, {id})
             .then(() => console.log("sukses fetch section"))
     })
 
     return <>
         <div className="flex items-center mb-6">
-            <a href={`/dashboard/admin/academic/major/${id}`}
+            <a href={`/dashboard/admin/academic/major/${sections.major_id}`}
                className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
-                <i className="fas fa-arrow-left mr-2"></i> Back to Major
+                <i className="fas fa-arrow-left mr-2"></i> Back to Courses
             </a>
             <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-                <i className="fas fa-user-edit text-brown-dark mr-3"></i> Create New Section
+                <i className="fas fa-user-edit text-brown-dark mr-3"></i> {sections.name}
             </h1>
         </div>
 
@@ -50,22 +50,33 @@ export default function SectionDashboard() {
             </Link>
         </div>
 
-        {sections.course_sections && sections.course_sections.map((section) => (
+        {sections.course_sections && sections.course_sections
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((section) => (
             <div key={section.id}
                  className="bg-brown-dark/90 m-3 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
-                    <Link to="#"
-                          className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
-                        <div className="flex items-center mb-3">
-                            <div
-                                className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">
-                                <i className="fas fa-user text-white"></i>
-                            </div>
-                            <h2 className="text-xl font-semibold text-cream hover:text-amber-300 transition-colors duration-200">
-                                {section.name}
-                            </h2>
+                    <div className="block rounded-lg transition-all duration-200 p-3 flex items-center mb-3">
+                        <div
+                            className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">
+                            <i className="fas fa-user text-white"></i>
                         </div>
-                    </Link>
+                        <h2 className="text-xl font-semibold text-cream hover:text-amber-300 transition-colors duration-200">
+                            {section.name}
+                        </h2>
+                    </div>
+                    <div className="space-y-3 text-beige ml-2">
+                        <p className="flex items-center">
+                            <i className="fas fa-envelope text-amber-400 w-6"></i>
+                            <span className="font-medium w-24">Lecturer</span>
+                            <span>{section.lecturer != null ? section.lecturer : "-"}</span>
+                        </p>
+                        <p className="flex items-center">
+                            <i className="fas fa-envelope text-amber-400 w-6"></i>
+                            <span className="font-medium w-24">Room</span>
+                            <span>{section.room != null ? section.room : "-"}</span>
+                        </p>
+                    </div>
 
                     <div className="mt-4 flex justify-end space-x-3">
                         <Link to={`/dashboard/admin/academic/major/section/${section.id}/edit`}

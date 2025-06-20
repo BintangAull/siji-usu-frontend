@@ -1,29 +1,51 @@
+// noinspection EqualityComparisonWithCoercionJS
+
 import {useState} from "react";
-import {useParams} from "react-router";
-import {updateRoom} from "../../../../lib/api/AdminApi.jsx";
+import {useNavigate, useParams} from "react-router";
+import {roomList, updateRoom} from "../../../../lib/api/AdminApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
-import {useLocalStorage} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 
 export default function UpdateRoom() {
 
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const {id} = useParams()
     const {room_id} = useParams()
     const [token, _] = useLocalStorage('access_token', '')
+
+    async function getRooms(token, id) {
+        const response = await roomList(token, {id})
+        const data = await response.json()
+        console.log("Room id: ", data.map(room => room.id))
+        console.log("Param room id: ", room_id)
+        const room = data.find(room => room.id == room_id)
+        if(room) {
+            setName(room.name)
+        } else {
+            await alertError("Room Not Found")
+        }
+    }
+
+    useEffectOnce(() => {
+        getRooms(token, id)
+    })
+
     async function handleSubmit(e) {
         e.preventDefault()
         const response = await updateRoom(token,id, room_id, {name})
         console.log(response.status)
         if(response.status === 204) {
-         await alertSuccess("Update Berhasil")
+            await alertSuccess("Update Berhasil")
+            navigate(`/dashboard/admin/academic/department/${id}/room`)
         }else {
-           await alertError("Update Gagal, Cek Kembali Data Anda, back end no info")
+            await alertError("Update Gagal, Cek Kembali Data Anda, back end no info")
         }
     }
 
     return <>
         <div className="flex items-center mb-6">
-            <a href="/dashboard/admin/academic/faculty"
+            <a href={`/dashboard/admin/academic/department/${id}/room`}
                className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
                 <i className="fas fa-arrow-left mr-2"></i> Back to
             </a>

@@ -143,12 +143,16 @@ export default function MajorDashboard(){
         </div>
 
 
-        {majors.map((major) => (
+        {majors
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((major) => (
             <div key={major.id}
+                 id={major.id}
                  className="mb-4 bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
+                <Link to={`/dashboard/admin/academic/major/${major.id}`}
+                      className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
+
                 <div className="p-6">
-                    <Link to={`/dashboard/admin/academic/major/${major.id}`}
-                        className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
                         <div className="flex items-center mb-3">
                             <div
                                 className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">
@@ -160,44 +164,37 @@ export default function MajorDashboard(){
                         <div className="space-y-3 text-beige ml-2">
                             <p className="flex items-center">
                                 <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                <span className="font-medium w-24">Code :</span>
+                                <span className="font-medium w-24">Code</span>
                                 <span>{major.code}</span>
                             </p>
 
                             {/*<h3>Faculty</h3>*/}
                             <p className="flex items-center">
                                 <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                <span className="font-medium w-24">Faculty :</span>
+                                <span className="font-medium w-24">Faculty</span>
                                 <span>{major.faculty.name}</span>
                             </p>
 
-                            {/*<p className="flex items-center">*/}
-                            {/*    <i className="fas fa-envelope text-amber-400 w-6"></i>*/}
-                            {/*    <span className="font-medium w-24">Code :</span>*/}
-                            {/*    <span>{major.faculty.code}</span>*/}
-                            {/*</p>*/}
+                            {/*{ major.rooms.length > 0 && (*/}
+                            {/*    <>*/}
+                            {/*        <h3>Room: </h3>*/}
+                            {/*        <ul className="space-y-4">*/}
+                            {/*            {[...major.rooms]  // membuat salinan array agar tidak mutasi state asli*/}
+                            {/*                .sort((a, b) => a.name.localeCompare(b.name))  // sort berdasarkan nama*/}
+                            {/*                .map((room) => (*/}
+                            {/*                    <li key={room.id} className="block">*/}
+                            {/*                        <div className="flex flex-col space-y-2">*/}
+                            {/*                            <p className="flex items-center">*/}
+                            {/*                                <span>- {room.name}</span>*/}
+                            {/*                            </p>*/}
+                            {/*                        </div>*/}
+                            {/*                    </li>*/}
+                            {/*                ))}*/}
+                            {/*        </ul>*/}
 
-                            { major.rooms.length > 0 && (
-                                <>
-                                    <h3>Room </h3>
-                                    <ul className="space-y-4">
-                                        {[...major.rooms]  // membuat salinan array agar tidak mutasi state asli
-                                            .sort((a, b) => a.name.localeCompare(b.name))  // sort berdasarkan nama
-                                            .map((room) => (
-                                                <li key={room.id} className="block">
-                                                    <div className="flex flex-col space-y-2">
-                                                        <p className="flex items-center">
-                                                            <span>- {room.name}</span>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                    </ul>
-
-                                </>
-                            ) }
+                            {/*    </>*/}
+                            {/*) }*/}
                         </div>
-                    </Link>
 
                     <div className="mt-4 flex justify-end space-x-3">
                         <Link to={`/dashboard/admin/academic/major/${major.id}/edit`}
@@ -208,6 +205,8 @@ export default function MajorDashboard(){
 
                     </div>
                 </div>
+                </Link>
+
             </div>
         ))}
 

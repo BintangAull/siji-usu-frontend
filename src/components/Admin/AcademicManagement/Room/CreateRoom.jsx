@@ -1,6 +1,6 @@
 import {createRoom} from "../../../../lib/api/AdminApi.jsx";
 import {useState} from "react";
-import {useNavigate, useParams} from "react-router";
+import {useParams} from "react-router";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 import {useLocalStorage} from "react-use";
 
@@ -24,9 +24,9 @@ export default function CreateRoom() {
 
     return <>
         <div className="flex items-center mb-6">
-            <a href="/dashboard/admin/academic/faculty"
+            <a href={`/dashboard/admin/academic/faculty/${id}/department`}
                className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
-                <i className="fas fa-arrow-left mr-2"></i> Back to Faculty
+                <i className="fas fa-arrow-left mr-2"></i> Back
             </a>
             <h1 className="text-2xl font-bold text-gray-900 flex items-center">
                 <i className="fas fa-user-edit text-brown-dark mr-3"></i> Create New Room

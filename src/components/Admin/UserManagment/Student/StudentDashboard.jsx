@@ -146,7 +146,7 @@ export default function StudentDashboard() {
                  className="mb-4 bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
                     <div
-                        className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
+                        className="block rounded-lg transition-all duration-200 p-3">
                         <div className="flex items-center mb-3">
                             <div
                                 className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">

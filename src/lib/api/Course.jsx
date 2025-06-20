@@ -48,6 +48,16 @@ export const sectionList = async (token, {id}) => {
     })
 }
 
+export const getSectionById = async (token, {section_id}) => {
+    return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/courses/sections/${section_id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export const updateSection = async (token,  {section_id,name, room_id}) => {
     return await fetch(`${import.meta.env.VITE_API_PATH}/admins/academic/courses/sections/${section_id}`, {
         method: 'PATCH',

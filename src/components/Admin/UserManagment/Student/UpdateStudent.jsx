@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
+// noinspection JSIgnoredPromiseFromCall
+
+import {useState} from "react";
 import {studentUpdate} from "../../../../lib/api/StudentApi.jsx";
 import {alertError, alertSuccess} from "../../../../lib/alert.js";
 import {useNavigate, useParams} from "react-router";
-import {useLocalStorage} from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 
 export default function UpdateStudent() {
     const navigate = useNavigate();
@@ -46,10 +48,10 @@ export default function UpdateStudent() {
         // setAcademicAdvisorId(data.academic_advisor.id)
     }
 
-    useEffect(() => {
+    useEffectOnce(() => {
         getStudent(id)
         getLecturers()
-    }, []);
+    });
 
 
     async function handleSubmit(e) {
@@ -69,9 +71,9 @@ export default function UpdateStudent() {
 
     return <>
         <div className="flex items-center mb-6">
-            <a href="/dashboard/admin/user/lecturer/"
+            <a href="/dashboard/admin/user/student/"
                className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
-                <i className="fas fa-arrow-left mr-2"></i> Back to
+                <i className="fas fa-arrow-left mr-2"></i> Back
             </a>
             <h1 className="text-2xl font-bold text-gray-900 flex items-center">
                 <i className="fas fa-user-edit text-brown-dark mr-3"></i> Edit Student info

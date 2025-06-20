@@ -36,6 +36,7 @@ import CoursesDashboard from "./components/Admin/AcademicManagement/Courses/Cour
 import CreateCourse from "./components/Admin/AcademicManagement/Courses/CreateCourse.jsx";
 import SectionDashboard from "./components/Admin/AcademicManagement/Courses/SectionDashboard.jsx";
 import CreateCourseSection from "./components/Admin/AcademicManagement/Courses/CreateCourseSection.jsx";
+import EditSection from "./components/Admin/AcademicManagement/Courses/EditSection.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -112,7 +113,11 @@ createRoot(document.getElementById('root')).render(
                                 <Route path = "course" element={<CreateCourse/>}/>
                                 <Route path = "edit" element={<UpdateMajor/>}/>
                             </Route>
-
+                            <Route path = "section">
+                                <Route path = ":section_id">
+                                    <Route path = "edit" element={<EditSection/>}/>
+                                </Route>
+                            </Route>
                         </Route>
 
                         <Route path = "department">

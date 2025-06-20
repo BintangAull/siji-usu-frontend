@@ -57,36 +57,29 @@ export default function CoursesDashboard() {
         {courses.map((course)  => (
             <div key={course.id}
                  className="bg-brown-dark/90 m-3 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
-                <div className="p-6">
-                    <Link to={`/dashboard/admin/academic/major/${course.id}/section`}
-                        className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
-                        <div className="flex items-center mb-3">
-                            <div
-                                className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">
-                                <i className="fas fa-user text-white"></i>
+                <Link to={`/dashboard/admin/academic/major/${course.id}/section`}
+                          className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
+                    <div className="p-6">
+                            <div className="flex items-center mb-3">
+                                <div
+                                    className="w-10 h-10 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center justify-center mr-3 shadow-md">
+                                    <i className="fas fa-book text-white"></i>
+                                </div>
+                                <h2 className="text-xl font-semibold text-cream hover:text-amber-300 transition-colors duration-200">{course.name}
+                                </h2>
                             </div>
-                            <h2 className="text-xl font-semibold text-cream hover:text-amber-300 transition-colors duration-200">{course.name}
-                            </h2>
-                        </div>
-                        <div className="space-y-3 text-beige ml-2">
-                            <p className="flex items-center">
-                                <i className="fas fa-envelope text-amber-400 w-6"></i>
-                                <span className="font-medium w-24">Code :</span>
-                                <span>{course.id}</span>
-                            </p>
-                        </div>
-                    </Link>
 
-                    {/*<div className="mt-4 flex justify-end space-x-3">*/}
-                    {/*    <Link to={`/dashboard/admin/academic/department/${id}/room/${room.id}/edit`}*/}
-                    {/*          className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"*/}
-                    {/*    >*/}
-                    {/*        <i className="fas fa-edit mr-2" /> Edit*/}
-                    {/*    </Link>*/}
+                        {/*<div className="mt-4 flex justify-end space-x-3">*/}
+                        {/*    <Link to={`/dashboard/admin/academic/department/${id}/room/${room.id}/edit`}*/}
+                        {/*          className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"*/}
+                        {/*    >*/}
+                        {/*        <i className="fas fa-edit mr-2" /> Edit*/}
+                        {/*    </Link>*/}
 
-                    {/*</div>*/}
+                        {/*</div>*/}
 
-                </div>
+                    </div>
+                </Link>
             </div>
 
 

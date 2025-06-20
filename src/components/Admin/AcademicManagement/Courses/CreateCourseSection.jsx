@@ -25,7 +25,7 @@ export default function CreateCourseSection() {
     return<>
 
         <div className="flex items-center mb-6">
-            <a href={`/dashboard/admin/academic/major/${id}`}
+            <a href={`/dashboard/admin/academic/major/${id}/section`}
                className="text-gray-900 hover:text-brown-dark mr-4 flex items-center transition-colors duration-200">
                 <i className="fas fa-arrow-left mr-2"></i> Back to Major
             </a>
