@@ -67,6 +67,13 @@ export default function SectionDashboard() {
                         </div>
                     </Link>
 
+                    <div className="mt-4 flex justify-end space-x-3">
+                        <Link to={`/dashboard/admin/academic/major/section/${section.id}/edit`}
+                              className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-400 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-brown-dark transition-all duration-200 font-medium shadow-md flex items-center"
+                        >
+                            <i className="fas fa-edit mr-2" /> Edit
+                        </Link>
+                    </div>
 
                 </div>
             </div>

@@ -6,7 +6,7 @@ import {alertError} from "../../../../lib/alert.js";
 
 export default function MajorDashboard(){
 
-    const [id, setId] = useState("")
+    const [id, __] = useState("")
     const [reload, setReload] = useState(false)
     const [token, _] = useLocalStorage('access_token', '')
     const [majors, setMajors] = useState([])
