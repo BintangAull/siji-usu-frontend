@@ -178,7 +178,7 @@ export default function MajorDashboard(){
             <div key={major.id}
                  className="bg-brown-dark/90 rounded-xl shadow-custom border-2 border-dashed border-gray-700 overflow-hidden card-hover animate-fade-in">
                 <div className="p-6">
-                    <div
+                    <Link to={`/dashboard/admin/academic/major/${major.id}`}
                         className="block cursor-pointer hover:bg-brown-light/30 rounded-lg transition-all duration-200 p-3">
                         <div className="flex items-center mb-3">
                             <div
@@ -224,9 +224,8 @@ export default function MajorDashboard(){
                                     </li>
                                 ))}
                             </ul>
-
                         </div>
-                    </div>
+                    </Link>
 
                     <div className="mt-4 flex justify-end space-x-3">
                         <Link to={`/dashboard/admin/academic/major/${major.id}/edit`}

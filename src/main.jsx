@@ -32,6 +32,8 @@ import RegisterMajor from "./components/Admin/AcademicManagement/Major/RegisterM
 import DepartmentList from "./components/Admin/AcademicManagement/Faculty/DepartmentList.jsx";
 import CreateRoom from "./components/Admin/AcademicManagement/Room/CreateRoom.jsx";
 import UpdateRoom from "./components/Admin/AcademicManagement/Room/UpdateRoom.jsx";
+import CoursesDashboard from "./components/Admin/AcademicManagement/Courses/CoursesDashboard.jsx";
+import CreateCourse from "./components/Admin/AcademicManagement/Courses/CreateCourse.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -102,6 +104,8 @@ createRoot(document.getElementById('root')).render(
                         <Route path = "major">
                             <Route index element={<MajorDashboard/>}/>
                             <Route path = ":id">
+                                <Route index element={<CoursesDashboard/>}/>
+                                <Route path = "course" element={<CreateCourse/>}/>
                                 <Route path = "edit" element={<UpdateMajor/>}/>
                             </Route>
 
@@ -121,10 +125,7 @@ createRoot(document.getElementById('root')).render(
 
                         </Route>
 
-                        <Route path = "course">
 
-
-                        </Route>
                     </Route>
 
 

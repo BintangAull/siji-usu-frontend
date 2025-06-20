@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { facultyList } from "../../../../lib/api/AdminApi.jsx";
+import { useState } from "react";
+import {departmentlist} from "../../../../lib/api/AdminApi.jsx";
 import { alertError } from "../../../../lib/alert.js";
-import { useLocalStorage } from "react-use";
+import {useEffectOnce, useLocalStorage} from "react-use";
 
 export default function DepartmentList() {
     const { id } = useParams(); // id fakultas dari URL
@@ -13,7 +13,7 @@ export default function DepartmentList() {
     async function fetchDepartment() {
         setLoading(true);
         try {
-            const response = await facultyList(token, { id });
+            const response = await departmentlist(token,{id});
             const responseBody = await response.json();
             console.log(responseBody);
             if (response.status === 200) {
@@ -22,15 +22,16 @@ export default function DepartmentList() {
                 await alertError("Gagal mengambil data fakultas");
             }
         } catch (err) {
-            await alertError("Terjadi kesalahan saat mengambil data");
+            await alertError("Terjadi kesalahan saat mengambil data"+'\n'+err.message);
         } finally {
             setLoading(false);
         }
     }
 
-    useEffect(() => {
-        fetchDepartment();
-    }, [id]);
+    useEffectOnce(() => {
+        fetchDepartment()
+            .then(() => console.log("sukses fetch faculty"))
+    })
 
     if (loading) return <div className="text-white p-4">Loading...</div>;
     if (!faculty) return <div className="text-white p-4">Tidak ada data fakultas</div>;

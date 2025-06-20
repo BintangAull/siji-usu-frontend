@@ -86,6 +86,7 @@ export default function StudentRegister() {
     useEffect(() => {
         if (faculty_id !== null) {
             getDepartments(faculty_id)
+                .then(() => console.log(departments))
 
         }
     }, [faculty_id])
@@ -93,6 +94,7 @@ export default function StudentRegister() {
     useEffect(() => {
         if (major_id !== null) {
             getLecturers(major_id)
+             .then(() => console.log(lecturers))
         }
     }, [major_id])
 
